@@ -2,7 +2,7 @@
 [Java|Spring] Koala 조직을 위한 출석부 서버입니다.
 
 ### [V1] 초기 설정
-Serverless + AWS Lambda + AWS CloudWatch + Slack + S3
+Serverless + AWS Lambda + AWS CloudWatch + Slack + RDS
 
 1. 백준 아이디로 푼 문제 크롤링 -> 완료
 2. 백준 연습 문제 푼 사람 크롤링 -> 백준 지원 X. 불가

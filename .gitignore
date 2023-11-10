@@ -1,0 +1,4 @@
+# .gitignore 파일 내용
+
+# IntelliJ IDEA
+.idea/
