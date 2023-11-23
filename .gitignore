@@ -2,3 +2,7 @@
 
 # IntelliJ IDEA
 .idea/
+*application.yml
+*application.properties
+out/*
+
