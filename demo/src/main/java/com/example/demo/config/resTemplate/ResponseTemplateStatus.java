@@ -10,7 +10,11 @@ public enum ResponseTemplateStatus {
     FAIL(false, "요청 실패", 1004),
 
     //2000: Request 성공 및 오류
-    DUPLICATE_STUDENT(false, "일치하는 회원이 이미 존재합니다.", 2000);
+    DUPLICATE_STUDENT(false, "일치하는 회원이 이미 존재합니다.", 2000),
+
+
+    //3000: Study Request
+    DUPLICATE_STUDY(false, "일치하는 스터디가 이미 존재합니다.", 3000);
 
     private final boolean isSuccess;
     private final String message;
