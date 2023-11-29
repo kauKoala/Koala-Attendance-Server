@@ -12,4 +12,7 @@ public class Study {
     private Long id;
     private String name;
     private String description;
+    private int totalWeeks; //총 몇 주까지 진행?
+
+
 }

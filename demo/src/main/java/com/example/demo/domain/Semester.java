@@ -11,6 +11,6 @@ public class Semester {
     @GeneratedValue
     private Long id;
     private int year;
-    private String term;
+    private String term; //1학기, 여름방학, 2학기, 겨울방학
 
 }
