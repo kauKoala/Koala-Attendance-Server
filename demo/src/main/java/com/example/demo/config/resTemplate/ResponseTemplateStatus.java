@@ -14,7 +14,15 @@ public enum ResponseTemplateStatus {
 
 
     //3000: Study Request
-    DUPLICATE_STUDY(false, "일치하는 스터디가 이미 존재합니다.", 3000);
+    DUPLICATE_STUDY(false, "일치하는 스터디가 이미 존재합니다.", 3000),
+
+
+    //4000: Semester Request
+    DUPLICATE_SEMESTER(false, "일치하는 학기가 이미 존재합니다.", 4000),
+
+
+    //5000: Week Request
+    DUPLICATE_WEEK(false, "해당 학기에 이미 주를 추가하였습니다.", 5000);
 
     private final boolean isSuccess;
     private final String message;
