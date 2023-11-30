@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
-import static com.example.demo.config.resTemplate.ResponseTemplateStatus.DUPLICATE_SEMESTER;
+import static com.example.demo.config.resTemplate.ResponseTemplateStatus.*;
 
 @Service
 @RequiredArgsConstructor
@@ -32,4 +32,9 @@ public class SemesterService {
         }
     }
 
+    public Long getTotalSemesterCount() {
+        Long totalSemesterCount = Optional.ofNullable(semesterRepository.countBy())
+                .orElse(0L);
+        return totalSemesterCount;
+    }
 }

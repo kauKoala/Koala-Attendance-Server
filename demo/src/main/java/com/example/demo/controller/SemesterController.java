@@ -29,4 +29,12 @@ public class SemesterController {
             return new ResponseTemplate<>((e.getStatus()));
         }
     }
+
+    @ResponseBody
+    @GetMapping("/count")
+    @Operation(summary="기수 갯수 반환 API", description = "마지막 기수를 반환하여 총 기수에 대해 조회합니다.")
+    public ResponseTemplate<Long> countTotalSemesters() {
+            Long totalSemester = semesterService.getTotalSemesterCount();
+            return new ResponseTemplate<>(totalSemester);
+    }
 }

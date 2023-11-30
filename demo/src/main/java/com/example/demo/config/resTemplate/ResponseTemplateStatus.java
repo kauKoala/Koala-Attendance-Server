@@ -18,7 +18,7 @@ public enum ResponseTemplateStatus {
 
 
     //4000: Semester Request
-    DUPLICATE_SEMESTER(false, "일치하는 학기가 이미 존재합니다.", 4000),
+    DUPLICATE_SEMESTER(false, "일치하는 기수가 이미 존재합니다.", 4000),
 
 
     //5000: Week Request

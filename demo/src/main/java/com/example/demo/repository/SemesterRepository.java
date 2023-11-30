@@ -9,4 +9,6 @@ import java.util.Optional;
 public interface SemesterRepository extends JpaRepository<Semester, Long> {
 
     Optional<Semester> findByYearAndSemesterType(int year, SemesterType semesterType);
+
+    Long countBy();
 }

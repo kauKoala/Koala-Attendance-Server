@@ -1,0 +1,50 @@
+@CHARSET "UTF-8";
+
+
+* {
+    margin:0px;
+    padding:0px;
+}
+
+body {
+    font-size: 9pt;
+    font-family:굴림;
+}
+
+/* 하이퍼링크 css */
+a {
+    cursor: hand;
+    color: #000000;
+    text-decoration: none;
+    font-size: 9pt;
+    line-height: 150%;
+}
+
+a:hover, a:active {
+    font-size: 9pt;
+    color: #F28011;
+    text-decoration: underline;
+}
+
+ul {
+    list-style: none;
+}
+
+td {font-size: 9pt;}
+
+.btn1 {
+    font-size: 9pt;
+    color:rgb(0,0,0);
+    background-color:rgb(245,245,245);
+    line-height:16px;
+}
+
+.btn2 {
+    color:#000000;
+    font: normal 9pt '굴림','trebuchet ms',helvetica,sans-serif;
+    background-color:#E4E4E4;
+    border:1px solid;
+    border-color: #696 #363 #363 #696;
+    line-height:16px;
+    padding:1px 6px 1px 6px;
+}
