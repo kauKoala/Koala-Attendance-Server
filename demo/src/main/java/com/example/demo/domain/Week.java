@@ -19,7 +19,7 @@ public class Week {
     @GeneratedValue
     private Long id;
     private int weekNumber; //1주차, 2주차 ..
-    private Long semesterId; // Semester과 연동 - Semester:Week 1:다
+    private Long semesterId; // //Join 필요 Semester과 연동 - Semester:Week 1:다
     private LocalDateTime startDate; // 시작 날짜
     private LocalDateTime endDate; // 종료 날짜
 
@@ -30,5 +30,4 @@ public class Week {
         this.startDate = weekReq.getStartDate();
         this.endDate = weekReq.getEndDate();
     }
-
 }

@@ -34,4 +34,9 @@ public class ViewController {
     public String register() {
         return "register";
     }
+
+    @RequestMapping(value="/attend")
+    public String attend() {
+        return "attend";
+    }
 }

@@ -13,6 +13,6 @@ public class History {
     private int writtenTistory;
     private int solvedBaekjoonWeek;
     private int writtenTistoryWeek;
-    private Long studentId;
-    private Long weekId;
+    private Long studentId; //Join 필요
+    private Long weekId; //Join 필요
 }

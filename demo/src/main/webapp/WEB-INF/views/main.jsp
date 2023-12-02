@@ -20,6 +20,7 @@
     <div class="collapse navbar-collapse" id="collapsibleNavbar">
         <ul class="navbar-nav">
             <li class="nav-item"><a class="nav-link" href="register">등록</a></li>
+            <li class="nav-item"><a class="nav-link" href="attend">참가</a></li>
             <li class="nav-item"><a class="nav-link" href="list">출석부 조회</a></li>
         </ul>
     </div>

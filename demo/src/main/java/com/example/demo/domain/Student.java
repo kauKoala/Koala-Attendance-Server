@@ -19,8 +19,8 @@ public class Student {
     private String name;
     private String baekjoonName;
     private String tistoryName;
-    private Long semesterId;
-    private Long studyId;
+    private Long semesterId; //Join 필요
+    private Long studyId; //Join 필요
 
     @Builder
     public Student(StudentReq studentReq){

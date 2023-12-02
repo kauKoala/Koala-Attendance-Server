@@ -3,7 +3,7 @@
 <%@include file="main.jsp"%>
 
 <div class="container p-4 my-4 border">
-    <h3>학생 등록</h3>
+    <h4 >학생 등록</h4>
     <div class="w-50 m-auto">
         <form action="" method="post">
             <div class="form-group">
@@ -24,7 +24,7 @@
 </div>
 
 <div class="container p-4 my-4 border">
-    <h3>스터디 등록</h3>
+    <h4>스터디 등록</h4>
     <div class="w-50 m-auto">
         <form action="" method="post">
             <div class="form-group">
