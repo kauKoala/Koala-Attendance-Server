@@ -22,10 +22,12 @@ public class Student {
     private String baekjoonName;
     private String tistoryName;
 
-    @OneToMany(mappedBy = "student")
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name="semester_id")
     private List<Semester> semester = new ArrayList<>(); //Join 필요
 
-    @OneToMany(mappedBy = "study")
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name ="study_id")
     private List<Study> study = new ArrayList<>(); //Join 필요
 
     @Builder

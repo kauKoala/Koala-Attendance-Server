@@ -1,10 +1,7 @@
 package com.example.demo.domain;
 
 import com.example.demo.controller.dto.StudyReq;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -24,10 +21,12 @@ public class Study {
     private String description;
     private int totalWeeks;
 
-    @OneToMany(mappedBy = "week")
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name ="week_id")
     private List<Week> weeks = new ArrayList<>();
 
-    @OneToMany(mappedBy = "semester")
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name ="semester_id")
     private List<Semester> semesters = new ArrayList<>();
 
     @Builder

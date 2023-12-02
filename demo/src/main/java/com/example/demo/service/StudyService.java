@@ -21,7 +21,7 @@ public class StudyService {
 
     public String createStudy(StudyReq studyReq) throws ResponseException {
 
-        Optional<Study> study = studyRepository.findByNameAndSemesterId(studyReq.getName(), studyReq.getSemesterId());
+        Optional<Study> study = studyRepository.findByName(studyReq.getName());
         if (study.isEmpty()) {
             Study newStudy = Study.builder()
                     .studyReq(studyReq)

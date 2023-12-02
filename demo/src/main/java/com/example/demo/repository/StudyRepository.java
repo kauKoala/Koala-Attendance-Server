@@ -8,6 +8,6 @@ import java.util.Optional;
 
 public interface StudyRepository extends JpaRepository<Study, Long> {
 
-    Optional<Study> findByNameAndSemesterId(String name, int semesterId);
+    Optional<Study> findByName(String name);
 
 }

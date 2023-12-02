@@ -23,7 +23,7 @@ public class WeekService {
 
     @Operation(summary = "Week 생성 API", description = "학기 별 Week 를 생성합니다.")
     public String createWeek(WeekReq weekReq) throws ResponseException{
-        Optional<Week> week = weekRepository.findByWeekNumberAndSemesterId(weekReq.getWeekNumber(), weekReq.getSemesterId());
+        Optional<Week> week = weekRepository.findByWeekNumber(weekReq.getWeekNumber());
         if (week.isEmpty()) {
             Week newWeek = Week.builder()
                     .weekReq(weekReq)

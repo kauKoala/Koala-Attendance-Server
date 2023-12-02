@@ -8,6 +8,6 @@ import java.util.Optional;
 
 public interface WeekRepository extends JpaRepository<Week, Long>{
 
-    Optional<Week> findByWeekNumberAndSemesterId(int WeekNumber, Long SemesterId);
+    Optional<Week> findByWeekNumber(int WeekNumber);
 
 }
