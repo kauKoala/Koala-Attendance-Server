@@ -13,10 +13,25 @@ public class ViewController {
 
     @Autowired
     private final SemesterService semesterService;
-    @RequestMapping("/jsp")
-    public String jsp(Model model) throws Exception {
+    @RequestMapping("/list")
+    public String list(Model model) {
         Long totalSemester = semesterService.getTotalSemesterCount();
         model.addAttribute("totalSemester", totalSemester);
         return "list";
+    }
+
+    @RequestMapping(value="/")
+    public String home() {
+        return "index";
+    }
+
+    @RequestMapping(value="/main")
+    public String main() {
+        return "main";
+    }
+
+    @RequestMapping(value="/register")
+    public String register() {
+        return "register";
     }
 }

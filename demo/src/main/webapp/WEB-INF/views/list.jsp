@@ -1,41 +1,41 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR" pageEncoding="EUC-KR"%>
+Ôªø<%@include file="main.jsp"%>
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>√‚ ºÆ ∫Œ</title>
+<div class="container">
+<h2 class="card-header"> Ï∂ú ÏÑù Î∂Ä </h2>
+<div id = "attendList" class="card-body">
 
-    <link rel="stylesheet" type="text/css" href="resources/css/list.css"/>
-    <link rel="stylesheet" type="text/css" href="resources/css/style.css"/>
-    <script>
-
-    </script>
-
-</head>
-<body>
-<div id = "attendList">
-    <div id = "attendList_title">
-        √‚ ºÆ ∫Œ ∏Ò ∑œ
+    <div class="d-flex justify-content-between">
+        Ï∂ú ÏÑù Î∂Ä Î™© Î°ù
+        <form action="" method="post" class="form-inline; d-flex justify-content-around" > <!--Ïó¨Í∏∞ÏóêÏÑú selectÌïú Í±∏Î°ú post Î≥¥ÎÇº Í±∞ÎãàÍπå-->
+            <select class="form-select form-select-lg" style="margin-right: 2px">
+<%--                    <% for (int i=1; i<= Integer.parseInt(String.valueOf(request.getAttribute("totalSemester"))); i++) {%>--%>
+<%--                        <option value="<%= i %>"><%= i %></option>--%>
+<%--                        <% } %>--%>
+                <option>1</option>
+                <option>2</option>
+            </select>
+            <br>
+            <input type="submit" value="ÏÑ†ÌÉù" class="btn btn-outline-primary btn-sm" onclick=""/>
+        </form>
     </div>
-    <div id = "attendList_header">
-        <div id="leftHeader">
-            <form action="" method="post"> <!--ø©±‚ø°º≠ select«— ∞…∑Œ post ∫∏≥æ ∞≈¥œ±Ó-->
-                <select name="searchKey" class="selectField">
-                    <% for (int i=1; i<= Integer.parseInt(String.valueOf(request.getAttribute("totalSemester"))); i++) {%>
-                    <option value="<%= i %>"><%= i %></option>
-                    <% } %>
-                </select>
-                <input type="button" value="∞À ªˆ" class="btn2" onclick=""/>
-            </form>
-        </div>
-    </div>
-    <div id="attendList_list">
-        <div>
+    <table id="attendList_list" class="table table-bordered">
+        <thead>
+            <tr>
+                <th>ÌïôÏÉù</th>
+                <th>1Ï£ºÏ∞®</th>
+                <th>2Ï£ºÏ∞®</th>
+                <th>3Ï£ºÏ∞®</th>
+                <th>4Ï£ºÏ∞®</th>
+                <th>5Ï£ºÏ∞®</th>
+                <th>6Ï£ºÏ∞®</th>
+                <th>7Ï£ºÏ∞®</th>
+                <th>8Ï£ºÏ∞®</th>
+            </tr>
+        </thead>
+        <tbody>
 
-        </div>
+        </tbody>
 
-    </div>
+    </table>
 </div>
-</body>
-</html>
+</div>
