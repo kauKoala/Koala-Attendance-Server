@@ -13,6 +13,4 @@ public class StudyReq {
     public String description;
     @Schema(description="총 몇 주까지 진행할 것인지 표시")
     public int totalWeeks;
-    @Schema(description="진행하는 학기 mapping")
-    public int semesterId;
 }

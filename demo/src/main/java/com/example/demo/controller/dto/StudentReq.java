@@ -14,8 +14,4 @@ public class StudentReq {
     private String baekjoonName;
     @Schema(description="학생 티스토리 아이디")
     private String tistoryName;
-    @Schema(description="공부하고 있는 해당 학기 id")
-    private Long semesterId;
-    @Schema(description="공부하고 있는 해당 스터디 id")
-    private Long studyId;
 }

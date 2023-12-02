@@ -1,8 +1,6 @@
 package com.example.demo.domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity
 public class History {
@@ -13,6 +11,12 @@ public class History {
     private int writtenTistory;
     private int solvedBaekjoonWeek;
     private int writtenTistoryWeek;
-    private Long studentId; //Join 필요
-    private Long weekId; //Join 필요
+
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name="student_id")
+    private Student student;
+
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name="week_id")
+    private Week week;
 }

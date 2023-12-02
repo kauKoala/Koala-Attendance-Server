@@ -4,9 +4,13 @@ import com.example.demo.controller.dto.StudyReq;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -19,15 +23,18 @@ public class Study {
     private String name;
     private String description;
     private int totalWeeks;
-    private int semesterId; //Join 필요
+
+    @OneToMany(mappedBy = "week")
+    private List<Week> weeks = new ArrayList<>();
+
+    @OneToMany(mappedBy = "semester")
+    private List<Semester> semesters = new ArrayList<>();
 
     @Builder
     public Study(StudyReq studyReq){
         this.name = studyReq.getName();
         this.description = studyReq.getDescription();
         this.totalWeeks = studyReq.getTotalWeeks();
-        this.semesterId = studyReq.getSemesterId();
-
     }
 
 }
