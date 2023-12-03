@@ -13,5 +13,4 @@ public class WeekReq {
     @Schema(description="해당 주차가 몇 주차인지")
     private int weekNumber; //1주차, 2주차 ..
     private LocalDateTime startDate; // 시작 날짜
-    private LocalDateTime endDate; // 종료 날짜
 }

@@ -65,6 +65,7 @@ public class ViewController {
     @RequestMapping(value="/study-register")
     public String studyregister(@ModelAttribute StudyReq studyReq, Model model) {
         try {
+            System.out.println(studyReq.studyWeeks);
             String name = studyService.createStudy(studyReq);
             model.addAttribute("message", name+" 스터디 등록 성공");
         } catch (ResponseException e){

@@ -35,6 +35,8 @@
 
                 listItem.appendChild(deleteButton);
                 weekList.appendChild(listItem);
+
+                document.getElementById('datearrInput').value = datearr;
             }
         }
 
@@ -84,9 +86,8 @@
                 <button type="button" onclick="addStartDateField()">시작일 추가</button>
                 <ul id="weekList"></ul>
                 </div>
-
             </div>
-
+            <input type="hidden" name="studyWeeks" id="datearrInput">
             <button type="submit" class="btn btn-success">Submit</button>
         </form>
     </div>

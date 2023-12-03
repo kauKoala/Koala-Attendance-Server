@@ -4,6 +4,9 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
+import java.time.LocalDate;
+import java.util.List;
+
 @Getter
 @AllArgsConstructor
 public class StudyReq {
@@ -11,6 +14,6 @@ public class StudyReq {
     public String name;
     @Schema(description="스터디에 대한 간단한 소개")
     public String description;
-    @Schema(description="총 몇 주까지 진행할 것인지 표시")
-    public int totalWeeks;
+    @Schema(description="시작하는 주차에 대한 정보들")
+    public List<String> studyWeeks;
 }

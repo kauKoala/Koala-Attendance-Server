@@ -19,15 +19,15 @@ public class WeekController {
     @Autowired
     private final WeekService weekService;
 
-    @ResponseBody
-    @PostMapping("/create")
-    @Operation(summary = "주 생성 API", description = "새로운 주를 생성하고 주의 시작과 끝을 표시합니다.")
-    public ResponseTemplate<String> createWeek(@RequestBody WeekReq weekReq) {
-        try {
-            String what = weekService.createWeek(weekReq);
-            return new ResponseTemplate<>(what);
-        } catch (ResponseException e) {
-            return new ResponseTemplate<>((e.getStatus()));
-        }
-    }
+//    @ResponseBody
+//    @PostMapping("/create")
+//    @Operation(summary = "주 생성 API", description = "새로운 주를 생성하고 주의 시작과 끝을 표시합니다.")
+//    public ResponseTemplate<String> createWeek(@RequestBody WeekReq weekReq) {
+//        try {
+//            String what = weekService.createWeek(weekReq);
+//            return new ResponseTemplate<>(what);
+//        } catch (ResponseException e) {
+//            return new ResponseTemplate<>((e.getStatus()));
+//        }
+//    }
 }

@@ -19,10 +19,9 @@ public class Study {
     private Long id;
     private String name;
     private String description;
-    private int totalWeeks;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name ="week_id")
+    @OneToMany
+    @JoinColumn(name ="study_id")
     private List<Week> weeks = new ArrayList<>();
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
@@ -30,10 +29,9 @@ public class Study {
     private List<Semester> semesters = new ArrayList<>();
 
     @Builder
-    public Study(StudyReq studyReq){
-        this.name = studyReq.getName();
-        this.description = studyReq.getDescription();
-        this.totalWeeks = studyReq.getTotalWeeks();
+    public Study(String name, String description, List studyWeeks) {
+        this.name = name;
+        this.description = description;
+        this.weeks = studyWeeks;
     }
-
 }
