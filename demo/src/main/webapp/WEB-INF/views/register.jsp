@@ -7,6 +7,38 @@
         if (message){
             alert(message);
         }
+
+        var datearr = [];
+        function addStartDateField() {
+            const startDateField = document.getElementById('startDate');
+            const startDateValue = startDateField.value;
+
+            console.log(startDateValue);
+
+            if (startDateValue) {
+                datearr.push(startDateValue);
+                console.log(datearr);
+
+                const weekList = document.getElementById('weekList');
+                const listItem = document.createElement('li');
+                listItem.textContent = startDateValue;
+                const deleteButton = document.createElement('button');
+                deleteButton.textContent = '삭제';
+                deleteButton.onclick = function() {
+                    const index = datearr.indexOf(startDateValue);
+                    if (index !== -1) {
+                        datearr.splice(index, 1);
+                    }
+                    weekList.removeChild(listItem);
+                    console.log(datearr);
+                };
+
+                listItem.appendChild(deleteButton);
+                weekList.appendChild(listItem);
+            }
+        }
+
+
 </script>
 
 
@@ -44,9 +76,17 @@
                 <input type="text" name="description" class="form-control" >
             </div>
             <div class="form-group">
-                <label>시행 주차</label>
-                <input type="number" name="totalWeeks" class="form-control" >
+                <label>주차 추가</label>
+                <div style="display: flex">
+                <div id="startDateFields" style="margin-right:15px">
+                    <input type="date" name="startDate" id="startDate" value="" max="9999-12-31">
+                </div>
+                <button type="button" onclick="addStartDateField()">시작일 추가</button>
+                <ul id="weekList"></ul>
+                </div>
+
             </div>
+
             <button type="submit" class="btn btn-success">Submit</button>
         </form>
     </div>
