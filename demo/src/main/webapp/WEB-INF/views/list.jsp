@@ -1,4 +1,4 @@
-﻿<%@include file="main.jsp"%>
+﻿<%@include file="nav.jsp"%>
 
 <div class="container">
 <h2 class="card-header"> 출 석 부 </h2>

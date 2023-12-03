@@ -1,36 +1,29 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-         pageEncoding="UTF-8"%>
-<%@ page import="java.io.PrintWriter" %>
-<!DOCTYPE html>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
-<html>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
-<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
-</head>
-<body>
-
-<nav class="navbar navbar-expand-md bg-dark navbar-dark">
-    <a class="navbar-brand" href="/">코알라 출석부 웹사이트</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="collapsibleNavbar">
-        <ul class="navbar-nav">
-            <li class="nav-item"><a class="nav-link" href="register">등록</a></li>
-            <li class="nav-item"><a class="nav-link" href="attend">참가</a></li>
-            <li class="nav-item"><a class="nav-link" href="list">출석부 조회</a></li>
-        </ul>
-    </div>
-</nav>
-<br />
+<%@include file="nav.jsp"%>
 
 
-</body>
-</html>
+<div class="mt-4 p-5 text-black rounded" style="margin:30px; background-color: #d8ffff">
+    <h1>현재 운영 및 모집 중인 스터디</h1>
+    <br>
+    <p>
+        현재 14기를 모집중에 있습니다.  -->
+        <a href="https://google.com" target="_blank">모집 폼 이동하기</a>
+    </p>
+    <p>
+        현재 15기를 운영중에 있습니다.  -->
+        <a href="https://google.com" target="_blank">운영 글 이동하기</a>
+    </p>
+
+</div>
+
+<div class="mt-4 p-5 text-black rounded" style="margin:30px; background-color: #ffefff">
+    <h2>Koala에 대한 더 많은 정보 확인하기</h2>
+    <br>
+    <p>
+        Koala gitHUB
+        <a href="https://google.com" target="_blank">https://github.com/</a>
+    </p>
 
 
-
-
+</div>
