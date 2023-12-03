@@ -42,6 +42,9 @@ dependencies {
     implementation 'javax.servlet:jstl:1.2'
     implementation 'org.springframework.boot:spring-boot-devtools'
 
+    //log
+    implementation group: "ch.qos.logback", name:"logback-classic", version:"1.4.7"
+
 }
 
 tasks.named('test') {
