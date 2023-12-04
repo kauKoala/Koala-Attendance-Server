@@ -12,6 +12,8 @@ import org.springframework.stereotype.Service;
 
 import javax.swing.text.html.Option;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import static com.example.demo.config.resTemplate.ResponseTemplateStatus.*;
@@ -65,4 +67,22 @@ public class SemesterService {
         semesterRepository.save(semester);
         return semester.getId();
     }
+
+    public List<String> getAllSemester(){
+        List<Semester> semesterList = semesterRepository.findAll();
+        List<String> semesterNameList = new ArrayList<>();
+
+        for (Semester semester: semesterList){
+            semesterNameList.add(semester.getYear().toString() + " " + semester.getSemesterType());
+        }
+        return semesterNameList;
+    }
+
+    public Semester findByYearAndSemesterType(String year, SemesterType semesterType) throws ResponseException {
+        Optional<Semester> semester = semesterRepository.findByYearAndSemesterType(year, semesterType);
+
+        return semester.orElseThrow(() -> new ResponseException(SEMESTER_NOT_FOUND));
+    }
+
+
 }

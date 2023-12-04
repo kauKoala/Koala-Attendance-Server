@@ -19,7 +19,7 @@ public enum ResponseTemplateStatus {
 
     //4000: Semester Request
     DUPLICATE_SEMESTER(false, "일치하는 기수가 이미 존재합니다.", 4000),
-
+    SEMESTER_NOT_FOUND(false, "일치하는 기수가 존재하지 않습니다.", 4001),
 
     //5000: Week Request
     DUPLICATE_WEEK(false, "해당 학기에 이미 주를 추가하였습니다.", 5000);
