@@ -18,7 +18,7 @@ public class Semester {
     @GeneratedValue
     @Column(name="semester_id")
     private Long id;
-    private int year;
+    private String year;
     private SemesterType semesterType; //1학기, 여름방학, 2학기, 겨울방학
 
 
@@ -26,5 +26,13 @@ public class Semester {
     @JoinColumn(name="semester_id")
     private List<Study> studyList = new ArrayList<>();
 
+    public Semester(String year, SemesterType semesterType){
+        this.year = year;
+        this.semesterType = semesterType;
+    }
+
+    public void addStudy(Study study){
+        studyList.add(study);
+    }
 
 }

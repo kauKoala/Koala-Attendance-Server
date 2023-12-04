@@ -11,15 +11,11 @@
                     <% for (int i=1; i<= Integer.parseInt(String.valueOf(request.getAttribute("totalSemester"))); i++) {%>
                         <option value="<%= i %>"><%= i %></option>
                         <% } %>
-                <option>코알라 1기</option>
-                <option>코알라 2기</option>
             </select>
             <select class="form-select form-select-lg" style="margin-right: 2px">
-                <%--                    <% for (int i=1; i<= Integer.parseInt(String.valueOf(request.getAttribute("totalSemester"))); i++) {%>--%>
-                <%--                        <option value="<%= i %>"><%= i %></option>--%>
-                <%--                        <% } %>--%>
-                <option>스터디1</option>
-                <option>스터디2</option>
+                                    <% for (int i=1; i<= Integer.parseInt(String.valueOf(request.getAttribute("totalSemester"))); i++) {%>
+                                        <option value="<%= i %>"><%= i %></option>
+                                        <% } %>
             </select>
             <br>
             <input type="submit" value="선택" class="btn btn-outline-primary btn-sm" onclick=""/>

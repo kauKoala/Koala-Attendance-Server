@@ -26,6 +26,7 @@ public class StudyService {
     @Autowired
     private final StudyRepository studyRepository;
     private final SemesterRepository semesterRepository;
+    private final SemesterService semesterService;
     private final WeekService weekService;
 
     public String createStudy(StudyReq studyReq) throws ResponseException {
@@ -39,6 +40,10 @@ public class StudyService {
             Study newStudy = new Study(studyReq.getName(), studyReq.getDescription(), weekList2);
 
             studyRepository.save(newStudy);
+
+            //해당 학기에 studyList 안에 study 추가
+            semesterService.addStudy(newStudy);
+
             return newStudy.getName();
         } else {
             throw new ResponseException(DUPLICATE_STUDY);
@@ -56,7 +61,6 @@ public class StudyService {
             }
             return studyResList;
         } else {
-            // 존재하지 않는 스터디를 찾은 경우, 특정한 예외를 던지도록 합니다.
             throw new ResponseException(STUDY_NOT_FOUND);
         }
     }

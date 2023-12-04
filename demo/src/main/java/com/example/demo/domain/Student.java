@@ -22,9 +22,6 @@ public class Student {
     private String baekjoonName;
     private String tistoryName;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name="semester_id")
-    private List<Semester> semester = new ArrayList<>(); //Join 필요
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name ="study_id")
@@ -36,7 +33,6 @@ public class Student {
         this.baekjoonName = studentReq.getBaekjoonName();
         this.tistoryName = studentReq.getTistoryName();
         this.study = new ArrayList<>();
-        this.semester = new ArrayList<>();
     }
 
 }

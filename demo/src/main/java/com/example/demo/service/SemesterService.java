@@ -4,35 +4,46 @@ import com.example.demo.config.resTemplate.ResponseException;
 import com.example.demo.controller.dto.SemesterRes;
 import com.example.demo.domain.Semester;
 import com.example.demo.domain.SemesterType;
+import com.example.demo.domain.Study;
 import com.example.demo.repository.SemesterRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.swing.text.html.Option;
 import java.time.LocalDate;
 import java.util.Optional;
 
 import static com.example.demo.config.resTemplate.ResponseTemplateStatus.*;
 
 @Service
-@RequiredArgsConstructor
 public class SemesterService {
 
-    @Autowired
     private final SemesterRepository semesterRepository;
 
 
+    public SemesterService(SemesterRepository semesterRepository){
+        this.semesterRepository = semesterRepository;
+    }
     public Long getTotalSemesterCount() {
         Long totalSemesterCount = Optional.ofNullable(semesterRepository.countBy())
                 .orElse(0L);
         return totalSemesterCount;
     }
 
+    public Semester getCurrentSemester() {
+        String currentYear = getCurrentYear();
+        SemesterType currentSemesterType = getCurrentSemesterType();
+        Optional<Semester> currentSemesterOptional = semesterRepository.findByYearAndSemesterType(currentYear, currentSemesterType);
+
+        return currentSemesterOptional.orElseGet(() -> new Semester(currentYear, currentSemesterType));
+    }
+
     public String getCurrentYear() {
         return String.valueOf(LocalDate.now().getYear());
     }
 
-    public SemesterType getCurrentSemester() {
+    public SemesterType getCurrentSemesterType() {
         LocalDate currentDate = LocalDate.now();
         int currentMonth = currentDate.getMonthValue();
         int currentDay = currentDate.getDayOfMonth();
@@ -46,5 +57,12 @@ public class SemesterService {
         } else {
             return SemesterType.WINTER_VACATION;  //12.20 ~ 2.28
         }
+    }
+
+    public Long addStudy(Study study) {
+        Semester semester = getCurrentSemester();
+        semester.addStudy(study);
+        semesterRepository.save(semester);
+        return semester.getId();
     }
 }

@@ -51,7 +51,7 @@ public class ViewController {
     @RequestMapping(value="/main")
     public String main(Model model) {
         String year = semesterService.getCurrentYear();
-        SemesterType semesterType = semesterService.getCurrentSemester();
+        SemesterType semesterType = semesterService.getCurrentSemesterType();
         model.addAttribute("year", year);
         model.addAttribute("semesterType", semesterType);
         return "main";
