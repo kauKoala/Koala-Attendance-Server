@@ -7,7 +7,7 @@
     <h1>현재 운영 및 모집 중인 스터디</h1>
     <br>
     <p>
-        현재 운영 중인 기수는 15기 입니다.  -->
+        현재 ${year} ${semesterType} 스터디를 운영 중입니다.  -->
         <a href="https://google.com" target="_blank">운영 글 이동하기</a>
     </p>
 

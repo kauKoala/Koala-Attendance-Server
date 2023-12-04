@@ -1,9 +1,9 @@
 package com.example.demo.controller;
 
 
-import com.example.demo.config.resTemplate.ResponseException;
 import com.example.demo.config.resTemplate.ResponseTemplate;
-import com.example.demo.controller.dto.SemesterReq;
+import com.example.demo.controller.dto.SemesterRes;
+import com.example.demo.domain.SemesterType;
 import com.example.demo.service.SemesterService;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
@@ -19,15 +19,14 @@ public class SemesterController {
     private final SemesterService semesterService;
 
     @ResponseBody
-    @PostMapping("/create")
-    @Operation(summary = "학기 생성 API", description = "새로운 기수를 등록합니다.")
-    public ResponseTemplate<String> createSemester(@RequestBody SemesterReq semesterReq){
-        try {
-            String name = semesterService.createSemester(semesterReq);
-            return new ResponseTemplate<>(name);
-        } catch (ResponseException e) {
-            return new ResponseTemplate<>((e.getStatus()));
-        }
+    @GetMapping("/semesterInfo")
+    @Operation(summary = "학기 자동 반환 API", description = "현재가 몇 년도 몇 학기인지 자동으로 반환합니다.")
+    public ResponseTemplate<SemesterRes> getSemester(){
+        String year = semesterService.getCurrentYear();
+        SemesterType semesterType = semesterService.getCurrentSemester();
+
+        return new ResponseTemplate<>(new SemesterRes(year, semesterType));
+
     }
 
     @ResponseBody

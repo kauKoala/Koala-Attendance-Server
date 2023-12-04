@@ -1,6 +1,6 @@
 package com.example.demo.domain;
 
-import com.example.demo.controller.dto.SemesterReq;
+import com.example.demo.controller.dto.SemesterRes;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
@@ -26,9 +26,5 @@ public class Semester {
     @JoinColumn(name="semester_id")
     private List<Study> studyList = new ArrayList<>();
 
-    @Builder
-    public Semester(SemesterReq semesterReq){
-        this.year = semesterReq.getYear();
-        this.semesterType = semesterReq.getSemesterType();
-    }
+
 }

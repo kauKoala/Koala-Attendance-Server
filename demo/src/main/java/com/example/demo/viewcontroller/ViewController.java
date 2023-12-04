@@ -6,6 +6,7 @@ import com.example.demo.controller.dto.StudentReq;
 import com.example.demo.controller.dto.StudentRes;
 import com.example.demo.controller.dto.StudyReq;
 import com.example.demo.controller.dto.StudyRes;
+import com.example.demo.domain.SemesterType;
 import com.example.demo.service.SemesterService;
 import com.example.demo.service.StudentService;
 import com.example.demo.service.StudyService;
@@ -37,6 +38,7 @@ public class ViewController {
     @RequestMapping("/list")
     public String list(Model model) {
         Long totalSemester = semesterService.getTotalSemesterCount();
+
         model.addAttribute("totalSemester", totalSemester);
         return "list";
     }
@@ -47,7 +49,11 @@ public class ViewController {
     }
 
     @RequestMapping(value="/main")
-    public String main() {
+    public String main(Model model) {
+        String year = semesterService.getCurrentYear();
+        SemesterType semesterType = semesterService.getCurrentSemester();
+        model.addAttribute("year", year);
+        model.addAttribute("semesterType", semesterType);
         return "main";
     }
 

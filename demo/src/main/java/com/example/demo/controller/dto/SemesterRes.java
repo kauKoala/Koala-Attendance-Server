@@ -7,9 +7,9 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public class SemesterReq {
+public class SemesterRes {
     @Schema(description="해당 년도")
-    private int year;
+    private String year;
     @Schema(description="1학기, 여름방학, 2학기, 겨울방학으로 type 구분")
     private SemesterType semesterType; //1학기, 여름방학, 2학기, 겨울방학
 }
