@@ -4,11 +4,14 @@ package com.example.demo.controller;
 import com.example.demo.config.resTemplate.ResponseException;
 import com.example.demo.config.resTemplate.ResponseTemplate;
 import com.example.demo.controller.dto.StudentReq;
+import com.example.demo.controller.dto.StudentRes;
 import com.example.demo.service.StudentService;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 
 @RestController
@@ -31,4 +34,16 @@ public class StudentController {
                 return new ResponseTemplate<>((e.getStatus()));
             }
         }
+
+        @ResponseBody
+        @GetMapping("/student")
+        public ResponseTemplate<List<StudentRes>> getStudentList(){
+                try {
+                    List<StudentRes> studentResList = studentService.getStudentList();
+                    return new ResponseTemplate<>(studentResList);
+                } catch (ResponseException e){
+                    return new ResponseTemplate<>((e.getStatus()));
+                }
+            }
+
 }

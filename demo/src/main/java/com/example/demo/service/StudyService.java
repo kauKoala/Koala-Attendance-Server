@@ -2,22 +2,21 @@ package com.example.demo.service;
 
 import com.example.demo.config.resTemplate.ResponseException;
 import com.example.demo.controller.dto.StudyReq;
+import com.example.demo.controller.dto.StudyRes;
 import com.example.demo.domain.Study;
 import com.example.demo.domain.Week;
+import com.example.demo.repository.SemesterRepository;
 import com.example.demo.repository.StudyRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
-import static com.example.demo.config.resTemplate.ResponseTemplateStatus.DUPLICATE_STUDY;
+import static com.example.demo.config.resTemplate.ResponseTemplateStatus.*;
 
 @Service
 @Slf4j
@@ -26,12 +25,12 @@ public class StudyService {
 
     @Autowired
     private final StudyRepository studyRepository;
+    private final SemesterRepository semesterRepository;
     private final WeekService weekService;
 
     public String createStudy(StudyReq studyReq) throws ResponseException {
 
         Optional<Study> study = studyRepository.findByName(studyReq.getName());
-        System.out.println(studyReq.getStudyWeeks());
         if (study.isEmpty()) {
             List<String> stringDateList = studyReq.getStudyWeeks(); // 클라이언트에서 받은 문자열 리스트
 
@@ -45,5 +44,20 @@ public class StudyService {
             throw new ResponseException(DUPLICATE_STUDY);
         }
 
+    }
+
+    public List<StudyRes> getStudyList(Long semesterId) throws ResponseException {
+        List<Study> studyList = semesterRepository.findStudiesBySemesterId(semesterId);
+        List<StudyRes> studyResList = new ArrayList<>();
+        if (!studyList.isEmpty()) {
+            for(Study study: studyList){
+                StudyRes studyRes = new StudyRes(study.getName(), study.getWeeks().size());
+                studyResList.add(studyRes);
+            }
+            return studyResList;
+        } else {
+            // 존재하지 않는 스터디를 찾은 경우, 특정한 예외를 던지도록 합니다.
+            throw new ResponseException(STUDY_NOT_FOUND);
+        }
     }
 }

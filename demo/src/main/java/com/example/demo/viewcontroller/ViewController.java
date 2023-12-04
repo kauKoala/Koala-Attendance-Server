@@ -3,7 +3,9 @@ package com.example.demo.viewcontroller;
 import com.example.demo.config.resTemplate.ResponseException;
 import com.example.demo.config.resTemplate.ResponseTemplate;
 import com.example.demo.controller.dto.StudentReq;
+import com.example.demo.controller.dto.StudentRes;
 import com.example.demo.controller.dto.StudyReq;
+import com.example.demo.controller.dto.StudyRes;
 import com.example.demo.service.SemesterService;
 import com.example.demo.service.StudentService;
 import com.example.demo.service.StudyService;
@@ -13,6 +15,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 public class ViewController {
@@ -75,8 +81,18 @@ public class ViewController {
     }
 
     @RequestMapping(value="/attend")
-    public String attend() {
-        return "attend";
+    public ModelAndView attend(ModelAndView modelAndView, Model model) throws ResponseException { //@ModelAttribute Long semesterId - 이후 추가
+
+        ArrayList<StudentRes> studentResList = studentService.getStudentList();
+        System.out.println("studentResList"+studentResList.toString());
+//        List<StudyRes> studyResList = studyService.getStudyList(1L);
+//        System.out.println("studyResList"+studyResList);
+        modelAndView.addObject("studentList",studentResList);
+//        modelAndView.addObject("studyList",studyResList);
+        modelAndView.setViewName("attend");
+
+
+        return modelAndView;
     }
 
     @RequestMapping(value="/alert")

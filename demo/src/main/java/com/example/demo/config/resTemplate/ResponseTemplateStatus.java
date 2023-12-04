@@ -15,7 +15,7 @@ public enum ResponseTemplateStatus {
 
     //3000: Study Request
     DUPLICATE_STUDY(false, "일치하는 스터디가 이미 존재합니다.", 3000),
-
+    STUDY_NOT_FOUND(false, "해당 기수에 스터디가 존재하지 않습니다.", 3001),
 
     //4000: Semester Request
     DUPLICATE_SEMESTER(false, "일치하는 기수가 이미 존재합니다.", 4000),

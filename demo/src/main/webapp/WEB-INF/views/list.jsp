@@ -8,9 +8,9 @@
         출 석 부 목 록
         <form action="" method="post" class="form-inline; d-flex justify-content-around" > <!--여기에서 select한 걸로 post 보낼 거니까-->
             <select class="form-select form-select-lg" style="margin-right: 2px">
-<%--                    <% for (int i=1; i<= Integer.parseInt(String.valueOf(request.getAttribute("totalSemester"))); i++) {%>--%>
-<%--                        <option value="<%= i %>"><%= i %></option>--%>
-<%--                        <% } %>--%>
+                    <% for (int i=1; i<= Integer.parseInt(String.valueOf(request.getAttribute("totalSemester"))); i++) {%>
+                        <option value="<%= i %>"><%= i %></option>
+                        <% } %>
                 <option>코알라 1기</option>
                 <option>코알라 2기</option>
             </select>

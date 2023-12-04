@@ -24,10 +24,6 @@ public class Study {
     @JoinColumn(name ="study_id")
     private List<Week> weeks = new ArrayList<>();
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name ="semester_id")
-    private List<Semester> semesters = new ArrayList<>();
-
     @Builder
     public Study(String name, String description, List studyWeeks) {
         this.name = name;
