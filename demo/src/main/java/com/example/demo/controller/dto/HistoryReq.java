@@ -10,6 +10,9 @@ import lombok.Getter;
 public class HistoryReq {
 
     @Schema(description="기수")
-    public Semester semester;
+    public String semester;
+
+    @Schema(description = "스터디")
+    public String studyName;
 
 }

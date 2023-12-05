@@ -22,11 +22,16 @@ public enum ResponseTemplateStatus {
     SEMESTER_NOT_FOUND(false, "일치하는 기수가 존재하지 않습니다.", 4001),
 
     //5000: Week Request
-    DUPLICATE_WEEK(false, "해당 학기에 이미 주를 추가하였습니다.", 5000);
+    DUPLICATE_WEEK(false, "해당 학기에 이미 주를 추가하였습니다.", 5000),
+
+    //6000: History Request
+    HISTORY_NOT_FOUND(false, "해당 스터디에 히스토리가 존재하지 않습니다.", 6001);
 
     private final boolean isSuccess;
     private final String message;
     private final int code;
+
+
 
     private ResponseTemplateStatus(boolean isSuccess, String message, int code){
         this.isSuccess = isSuccess;

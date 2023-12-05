@@ -1,18 +1,12 @@
 package com.example.demo.viewcontroller;
 
 import com.example.demo.config.resTemplate.ResponseException;
-import com.example.demo.config.resTemplate.ResponseTemplate;
-import com.example.demo.controller.dto.StudentReq;
-import com.example.demo.controller.dto.StudentRes;
-import com.example.demo.controller.dto.StudyReq;
-import com.example.demo.controller.dto.StudyRes;
+import com.example.demo.controller.dto.*;
 import com.example.demo.domain.Semester;
 import com.example.demo.domain.SemesterType;
 import com.example.demo.service.SemesterService;
 import com.example.demo.service.StudentService;
 import com.example.demo.service.StudyService;
-import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -78,6 +72,27 @@ public class ViewController {
         // 처리할 수 없는 경우 예외 처리 또는 다른 작업 수행
         return "error";
     }
+//
+//    @RequestMapping("/history")
+//    public String historylist(@ModelAttribute HistoryReq, Model model){
+//        try{
+//            //히스토리를 찾는다
+//        } catch(ResponseException e) {
+//            model.addAttribute("message", e.getMessage());
+//        }
+//        return "list";
+//    }
+//
+//    @RequestMapping("/attend-api")
+//    public String attendapi(@ModelAttribute //학생리스트와 스터디, Model model) {
+//        try {
+//
+//        } catch()
+//
+//    }
+//
+//        return "attend";
+//    }
 
     @RequestMapping(value="/")
     public String home() {

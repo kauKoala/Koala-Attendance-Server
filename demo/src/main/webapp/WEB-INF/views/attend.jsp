@@ -6,6 +6,19 @@
     var studentList = "${studentList}"
     console.log("studentList:", studentList)
     console.log("studyList:",${studyList})
+
+    const studyCheckboxes = document.querySelectorAll('.studyCheckbox');
+    studyCheckboxes.forEach(checkbox => {
+        checkbox.addEventListener('change', function() {
+            if (this.checked) {
+                studyCheckboxes.forEach(cb => {
+                    if (cb !== this) {
+                        cb.checked = false;
+                    }
+                });
+            }
+        });
+    });
 </script>
 
 <div class="container p-4 my-4 border">
@@ -27,9 +40,9 @@
                 <c:forEach var="study" items="${}">
                     <input type="checkbox" name="study" value="${study.name}">${study.name}<br>
                 </c:forEach>
-                <input type="checkbox" name="study" value="Study 1"> 기초알고리즘 스터디<br>
-                <input type="checkbox" name="study" value="Study 2"> 코딩테스트 스터디<br>
-                <input type="checkbox" name="study" value="Study 3"> 모의테스트 스터디<br>
+                <input class = "studyCheckbox" type="checkbox" name="studyCheckbox" value="Study 1"> 기초알고리즘 스터디<br>
+                <input class = "studyCheckbox" type="checkbox" name="studyCheckbox" value="Study 2"> 코딩테스트 스터디<br>
+                <input class = "studyCheckbox" type="checkbox" name="studyCheckbox" value="Study 3"> 모의테스트 스터디<br>
             </fieldset>
             </div>
             <button type="submit" name="action" value="post" class="btn btn-success">추 가</button>
