@@ -15,7 +15,7 @@ import java.util.List;
 public class Semester {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="semester_id")
     private Long id;
     private String year;

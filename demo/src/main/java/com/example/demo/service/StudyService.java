@@ -1,6 +1,7 @@
 package com.example.demo.service;
 
 import com.example.demo.config.resTemplate.ResponseException;
+import com.example.demo.controller.dto.HistoryReq;
 import com.example.demo.controller.dto.StudyReq;
 import com.example.demo.controller.dto.StudyRes;
 import com.example.demo.domain.Study;
@@ -56,7 +57,7 @@ public class StudyService {
         List<StudyRes> studyResList = new ArrayList<>();
         if (!studyList.isEmpty()) {
             for(Study study: studyList){
-                StudyRes studyRes = new StudyRes(study.getName(), study.getWeeks().size());
+                StudyRes studyRes = new StudyRes(study.getId(), study.getName(), study.getWeeks().size());
                 studyResList.add(studyRes);
             }
             return studyResList;
@@ -64,4 +65,5 @@ public class StudyService {
             throw new ResponseException(STUDY_NOT_FOUND);
         }
     }
+
 }

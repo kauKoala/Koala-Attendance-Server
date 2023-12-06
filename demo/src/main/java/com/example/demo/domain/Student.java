@@ -15,7 +15,7 @@ import java.util.List;
 public class Student {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="student_id")
     private Long id;
     private String name;
@@ -34,5 +34,4 @@ public class Student {
         this.tistoryName = studentReq.getTistoryName();
         this.study = new ArrayList<>();
     }
-
 }

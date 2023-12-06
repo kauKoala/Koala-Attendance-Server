@@ -17,4 +17,6 @@ public interface SemesterRepository extends JpaRepository<Semester, Long> {
 
     @Query("SELECT s.studyList FROM Semester s WHERE s.id = :semesterId")
     List<Study> findStudiesBySemesterId(Long semesterId);
+
+
 }

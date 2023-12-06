@@ -13,6 +13,8 @@ import java.util.List;
 @Data
 public class StudyRes {
 
+    @Schema(description="id")
+    public Long id;
     @Schema(description="스터디 명")
     public String name;
 

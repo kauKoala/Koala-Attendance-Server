@@ -1,10 +1,7 @@
 package com.example.demo.domain;
 
 import com.example.demo.controller.dto.WeekReq;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,7 +15,7 @@ import java.time.LocalDateTime;
 public class Week {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="week_id")
     private Long id;
     private int weekNumber; //1주차, 2주차 ..

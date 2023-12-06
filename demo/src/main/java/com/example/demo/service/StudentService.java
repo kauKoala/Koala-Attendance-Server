@@ -44,9 +44,11 @@ public class StudentService {
         System.out.println("student"+(studentList));
         ArrayList<StudentRes> studentResList = new ArrayList<>();
         for (Student student : studentList){
-            StudentRes studentRes = new StudentRes(student.getName());
+            StudentRes studentRes = new StudentRes(student.getId(), student.getName() );
             studentResList.add(studentRes);
         }
         return studentResList;
     }
+
+
 }

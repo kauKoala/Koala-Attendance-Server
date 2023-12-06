@@ -10,7 +10,7 @@ import java.util.List;
 @Getter
 public class History {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @ElementCollection
     private List<Integer> solvedBaekjoon = new ArrayList<>();

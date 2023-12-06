@@ -9,6 +9,9 @@ import lombok.Setter;
 @Getter @Setter @Data
 @AllArgsConstructor
 public class StudentRes {
+
+    @Schema(description = "id 값")
+    public Long id;
     @Schema(description="학생 이름")
     public String name;
 

@@ -5,46 +5,56 @@
 <script>
     var studentList = "${studentList}"
     console.log("studentList:", studentList)
-    console.log("studyList:",${studyList})
+    var studyList = "${studyList}"
+    console.log("studyList:",studyList)
 
-    const studyCheckboxes = document.querySelectorAll('.studyCheckbox');
-    studyCheckboxes.forEach(checkbox => {
-        checkbox.addEventListener('change', function() {
-            if (this.checked) {
-                studyCheckboxes.forEach(cb => {
-                    if (cb !== this) {
-                        cb.checked = false;
-                    }
-                });
+    function checkOnlyOne(element) {
+
+        const checkboxes
+            = document.getElementsByName("study");
+
+        checkboxes.forEach((cb) => {
+            cb.checked = false;
+        })
+
+        element.checked = true;
+    }
+
+    var studentarr = [];
+    function addStudent(studentName) {
+        if (studentarr.includes(studentName)) {
+            // 선택 취소 시 배열에서 제거
+            const index = studentarr.indexOf(studentName);
+            if (index !== -1) {
+                studentarr.splice(index, 1);
             }
-        });
-    });
+        } else {
+            // 선택 시 배열에 추가
+            studentarr.push(studentName);
+        }
+        document.getElementById('studentListInput').value = studentarr;
+    }
 </script>
 
 <div class="container p-4 my-4 border">
     <h4 >스터디 참가 조정</h4>
     <div class="w-50 m-auto">
-        <form action="/"  method="post" >
+        <form action="/attend-register" method="post">
             <div style="display: flex; justify-content: space-between;" >
             <fieldset>
                 <legend>학생 선택</legend>
                 <c:forEach var="student" items="${studentList}">
-                    <input type="checkbox" name="person" value="${student.name}"> ${student.name}<br>
+                    <input type="checkbox" name="student" value="${student.id}" onclick="addStudent('${student.id}')"> ${student.name}<br>
                 </c:forEach>
-                <input type="checkbox" name="person" value="John"> 전영서<br>
-                <input type="checkbox" name="person" value="Emily"> 김두현<br>
-                <input type="checkbox" name="person" value="Mike"> 박상신<br>
             </fieldset>
             <fieldset>
                 <legend>스터디 선택</legend>
-                <c:forEach var="study" items="${}">
-                    <input type="checkbox" name="study" value="${study.name}">${study.name}<br>
+                <c:forEach var="study" items="${studyList}">
+                    <input type="checkbox" name="study" value="${study.id}" onclick='checkOnlyOne(this)'>${study.name}<br>
                 </c:forEach>
-                <input class = "studyCheckbox" type="checkbox" name="studyCheckbox" value="Study 1"> 기초알고리즘 스터디<br>
-                <input class = "studyCheckbox" type="checkbox" name="studyCheckbox" value="Study 2"> 코딩테스트 스터디<br>
-                <input class = "studyCheckbox" type="checkbox" name="studyCheckbox" value="Study 3"> 모의테스트 스터디<br>
             </fieldset>
             </div>
+            <input type="hidden" name="studentList" id="studentListInput">
             <button type="submit" name="action" value="post" class="btn btn-success">추 가</button>
             <button type="submit" name="action" value="delete" class="btn btn-success">삭 제</button>
         </form>
