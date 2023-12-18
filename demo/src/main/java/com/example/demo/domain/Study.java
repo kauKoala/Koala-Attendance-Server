@@ -16,6 +16,7 @@ public class Study {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="study_id")
     private Long id;
     private String name;
     private String description;

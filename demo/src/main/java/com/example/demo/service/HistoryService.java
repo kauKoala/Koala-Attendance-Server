@@ -1,8 +1,9 @@
 package com.example.demo.service;
 
+import com.example.demo.controller.dto.HistoriesRes;
+import com.example.demo.controller.dto.StudentRes;
 import com.example.demo.domain.History;
 import com.example.demo.config.resTemplate.ResponseException;
-import com.example.demo.controller.dto.HistoryRes;
 import com.example.demo.repository.HistoryRepository;
 import com.example.demo.repository.StudyRepository;
 import lombok.RequiredArgsConstructor;
@@ -22,23 +23,29 @@ public class HistoryService {
     @Autowired
     private final HistoryRepository historyRepository;
     private final StudyRepository studyRepository;
+    private final StudentService studentService;
 
-    public List<HistoryRes> getHistoryList(Long studyId) throws ResponseException {
-        //그 스터디에 해당하는 주를 가져오고
+    public List<HistoriesRes> getHistoryList(Long studyId) throws ResponseException {
+        //그 스터디에 해당하는 주 가져온다.
         int studyCount = studyRepository.countWeeksByStudyId(studyId);
+        List<HistoriesRes> historyResList = new ArrayList<>();
 
-        List<HistoryRes> historyResList = new ArrayList<>();
-        //for문으로 week를 돌린다.
-        for (int week = 1; week < studyCount; week++) { //두번째 주차부터 돌린다.
-            Optional<History> history = historyRepository.findAllByStudyIdAndWeekId(studyId, studyCount);
-            if (history.isEmpty()) {
-                throw new ResponseException(HISTORY_NOT_FOUND);
-            } else {
+        //그 스터디에 참여하는 학생들 가져온다.
+        List<StudentRes> studentResList = studentService.getStudentListByStudyId(studyId);
+
+        //for문으로 주별, 학생별 history를 돌린다.
+        for (StudentRes studentRes : studentResList) {
+            for (int week = 0; week < studyCount; week++) { //이후 크롤링은 두번째 주차부터 돌린다.
+                Optional<History> history = historyRepository.findAllByStudyIdAndWeekIdAndStudentId(studyId, week, studentRes.getId());
+                System.out.println("here, "+ week);
                 System.out.println(history);
-                boolean isSolved = checkProblemsSolvedThisWeek(history.get());
-                boolean isWritten = checkTistoryWrittenThisWeek(history.get());
+                if (history.isPresent()) {
+                    boolean isSolved = checkProblemsSolvedThisWeek(history.get()); //이후 수정 필요
+                    boolean isWritten = checkTistoryWrittenThisWeek(history.get());
+                    HistoriesRes historyListRes = new HistoriesRes(studentRes.getName(), week, isSolved, isWritten);
+                    historyResList.add(historyListRes);
+                }
             }
-
         }
         return historyResList;
     }
@@ -46,18 +53,17 @@ public class HistoryService {
     public boolean checkProblemsSolvedThisWeek (History history){
 
         int solvedProblemsThisWeek = history.getSolvedBaekjoonWeek();
-        if (solvedProblemsThisWeek > 3){
+        if (solvedProblemsThisWeek > 3) {
             return true;
         }
         return false;
     }
 
 
-
     public boolean checkTistoryWrittenThisWeek (History history){
         int writtenTistoryThisWeek = history.getWrittenTistoryWeek();
 
-        if(writtenTistoryThisWeek > 0){
+        if (writtenTistoryThisWeek > 0) {
             return true;
         }
         return false;

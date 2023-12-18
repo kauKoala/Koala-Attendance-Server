@@ -50,5 +50,26 @@ public class StudentService {
         return studentResList;
     }
 
+    public void removeStudyFromStudyList(List<Long> studentIdList, Long studyId) throws ResponseException{
+        // 일단 그 스터디가 student DB에 연동이 되어있는지를 본다.
+        // 연동 안되어있으면 delete 할 필요 없음
+        studentRepository.deleteStudyByStudyId(studyId);
+
+    }
+
+    public void addStudyToStudyList(List<Long> studentIdList, Long studyId) throws ResponseException{
+        //이미 추가가 되어있는지 본다.
+        //추가 안 되어있으면 추가
+    }
+
+    public List<StudentRes> getStudentListByStudyId(Long studyId) throws ResponseException{
+        List<Student> studentList = studentRepository.findByStudyId(studyId);
+        List<StudentRes> studentResList = new ArrayList<>();
+        for (Student student: studentList){
+            studentResList.add(new StudentRes(student.getId(), student.getName()));
+        }
+        System.out.println(studentList);
+        return studentResList;
+    }
 
 }

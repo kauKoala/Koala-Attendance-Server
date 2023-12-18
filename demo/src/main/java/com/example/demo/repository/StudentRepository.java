@@ -20,4 +20,6 @@ public interface StudentRepository extends JpaRepository<Student, Long> {
     @Query(value = "DELETE FROM Study WHERE id = :studyId", nativeQuery = true)
     void deleteStudyByStudyId(@Param("studyId") Long studyId);
 
+
+    List<Student> findByStudyId(Long studyId);
 }

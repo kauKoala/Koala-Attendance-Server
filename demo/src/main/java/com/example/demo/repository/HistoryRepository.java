@@ -19,7 +19,7 @@ public interface HistoryRepository extends JpaRepository <History, Long> {
     * -> 이후 출석부에 입력
     * */
 
-    Optional<History> findAllByStudyIdAndWeekId(Long studyId, int weekId);
+    Optional<History> findAllByStudyIdAndWeekIdAndStudentId(Long studyId, int weekId, Long studentId);
 
 
 }

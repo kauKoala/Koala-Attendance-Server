@@ -16,14 +16,15 @@ public class History {
     private List<Integer> solvedBaekjoon = new ArrayList<>();
     @ElementCollection
     private List<Integer> writtenTistory = new ArrayList<>();;
+
     private int solvedBaekjoonWeek;
     private int writtenTistoryWeek;
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name="student_id")
     private Student student;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name="study_id")
     private Study study;
 

@@ -3,9 +3,10 @@ package com.example.demo.controller.dto;
 import com.example.demo.domain.SemesterType;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.Getter;
 
-@Getter
+@Getter @Data
 @AllArgsConstructor
 public class SemesterRes {
     @Schema(description="해당 년도")

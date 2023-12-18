@@ -2,7 +2,7 @@ package com.example.demo.controller;
 
 import com.example.demo.config.resTemplate.ResponseException;
 import com.example.demo.config.resTemplate.ResponseTemplate;
-import com.example.demo.controller.dto.HistoryRes;
+import com.example.demo.controller.dto.HistoriesRes;
 import com.example.demo.service.HistoryService;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
@@ -23,8 +23,8 @@ public class HistoryController {
     @ResponseBody
     @GetMapping("/historyList")
     @Operation(summary = "히스토리 반환 API", description = "스터디에 맞는 히스토리를 추적합니다.")
-    public ResponseTemplate<List<HistoryRes>> getHistoryList(Long studyId) throws ResponseException {
-        List<HistoryRes> historyResList = historyService.getHistoryList(studyId);
+    public ResponseTemplate<List<HistoriesRes>> getHistoryList(Long studyId) throws ResponseException {
+        List<HistoriesRes> historyResList = historyService.getHistoryList(studyId);
         return new ResponseTemplate<>(historyResList);
     }
 
