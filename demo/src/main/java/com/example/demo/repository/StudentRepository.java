@@ -21,5 +21,4 @@ public interface StudentRepository extends JpaRepository<Student, Long> {
     void deleteStudyByStudyId(@Param("studyId") Long studyId);
 
 
-    List<Student> findByStudyId(Long studyId);
-}
+    List<Student> findByStudiesStudyId(Long studyId);}

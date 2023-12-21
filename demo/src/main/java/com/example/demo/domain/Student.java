@@ -23,15 +23,13 @@ public class Student {
     private String tistoryName;
 
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name ="study_id")
-    private List<Study> study = new ArrayList<>(); //Join 필요
+    @OneToMany(mappedBy = "student")
+    private List<Student_Study> studies = new ArrayList<>();
 
     @Builder
     public Student(StudentReq studentReq){
         this.name = studentReq.getName();
         this.baekjoonName = studentReq.getBaekjoonName();
         this.tistoryName = studentReq.getTistoryName();
-        this.study = new ArrayList<>();
     }
 }

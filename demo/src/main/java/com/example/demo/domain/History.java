@@ -28,7 +28,7 @@ public class History {
     @JoinColumn(name="study_id")
     private Study study;
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name="week_id")
     private Week week;
 }

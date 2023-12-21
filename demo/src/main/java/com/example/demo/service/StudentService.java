@@ -62,7 +62,7 @@ public class StudentService {
     }
 
     public List<StudentRes> getStudentListByStudyId(Long studyId) throws ResponseException{
-        List<Student> studentList = studentRepository.findByStudyId(studyId);
+        List<Student> studentList = studentRepository.findByStudiesStudyId(studyId);
         List<StudentRes> studentResList = new ArrayList<>();
         for (Student student: studentList){
             studentResList.add(new StudentRes(student.getId(), student.getName()));

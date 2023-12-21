@@ -25,6 +25,9 @@ public class Study {
     @JoinColumn(name ="study_id")
     private List<Week> weeks = new ArrayList<>();
 
+    @OneToMany(mappedBy = "study")
+    private List<Student_Study> students = new ArrayList<>();
+
     @Builder
     public Study(String name, String description, List studyWeeks) {
         this.name = name;
