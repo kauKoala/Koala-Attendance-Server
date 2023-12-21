@@ -63,23 +63,27 @@
     <%
         List<HistoriesRes> historyResList = (List<HistoriesRes>) request.getAttribute("historyResList");
 
-        Map<String, Map<Integer, String>> studentMap_baekjoon = new HashMap<>(); //이름:[주차, OX] //백준
-        Map<String, Map<Integer, String>> studentMap_tistory = new HashMap<>(); //이름:[주차, OX] //티스토리
-        for (HistoriesRes history : historyResList) {
-            String studentName = history.getStudentName();
-            int weekId = history.getWeekId();
-            boolean isSolved = history.isSolved();
-            boolean isWritten = history.isWritten();
+        Map<String, Map<Integer, String>> studentMap_baekjoon = new HashMap<>(); // 이름:[주차, OX] // 백준
+        Map<String, Map<Integer, String>> studentMap_tistory = new HashMap<>(); // 이름:[주차, OX] // 티스토리
 
-            if (!studentMap_baekjoon.containsKey(studentName)) {
-                studentMap_baekjoon.put(studentName, new HashMap<>());
-            }
-            studentMap_baekjoon.get(studentName).put(weekId, isSolved ? "○" : "✗");
+        // historyResList가 null이 아니고 비어있지 않을 경우에만 맵 생성 로직 수행
+        if (historyResList != null && !historyResList.isEmpty()) {
+            for (HistoriesRes history : historyResList) {
+                String studentName = history.getStudentName();
+                int weekId = history.getWeekId();
+                boolean isSolved = history.isSolved();
+                boolean isWritten = history.isWritten();
 
-            if (!studentMap_tistory.containsKey(studentName)) {
-                studentMap_tistory.put(studentName, new HashMap<>());
+                if (!studentMap_baekjoon.containsKey(studentName)) {
+                    studentMap_baekjoon.put(studentName, new HashMap<>());
+                }
+                studentMap_baekjoon.get(studentName).put(weekId, isSolved ? "○" : "✗");
+
+                if (!studentMap_tistory.containsKey(studentName)) {
+                    studentMap_tistory.put(studentName, new HashMap<>());
+                }
+                studentMap_tistory.get(studentName).put(weekId, isWritten ? "○" : "✗");
             }
-            studentMap_tistory.get(studentName).put(weekId, isWritten ? "○" : "✗");
         }
     %>
 
@@ -95,6 +99,7 @@
             <th>6주차</th>
             <th>7주차</th>
             <th>8주차</th>
+
             <!-- 일단 하드코딩 -->
         </tr>
         </thead>

@@ -41,7 +41,6 @@ public class StudentService {
 
     public ArrayList<StudentRes> getStudentList() throws ResponseException {
         List<Student> studentList = studentRepository.findAll();
-        System.out.println("student"+(studentList));
         ArrayList<StudentRes> studentResList = new ArrayList<>();
         for (Student student : studentList){
             StudentRes studentRes = new StudentRes(student.getId(), student.getName() );
@@ -68,7 +67,6 @@ public class StudentService {
         for (Student student: studentList){
             studentResList.add(new StudentRes(student.getId(), student.getName()));
         }
-        System.out.println(studentList);
         return studentResList;
     }
 

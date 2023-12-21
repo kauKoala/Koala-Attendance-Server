@@ -76,7 +76,6 @@ public class ViewController {
         try{
             //히스토리를 찾는다
             List<HistoriesRes> historyResList = historyService.getHistoryList(1L); //일단 하드코딩
-            System.out.println("historyResList"+historyResList);
             model.addAttribute("historyResList",historyResList);
         } catch(ResponseException e) {
             model.addAttribute("message", e.getMessage());
@@ -129,7 +128,6 @@ public String studentregister(@ModelAttribute StudentReq studentReq, Model model
 @RequestMapping(value="/study-register")
 public String studyregister(@ModelAttribute StudyReq studyReq, Model model) {
         try {
-        System.out.println(studyReq.studyWeeks);
         String name = studyService.createStudy(studyReq);
         model.addAttribute("message", name+" 스터디 등록 성공");
         } catch (ResponseException e){
@@ -142,9 +140,7 @@ public String studyregister(@ModelAttribute StudyReq studyReq, Model model) {
 public ModelAndView attend(ModelAndView modelAndView, Model model) throws ResponseException { //@ModelAttribute Long semesterId - 이후 추가
 
         ArrayList<StudentRes> studentResList = studentService.getStudentList();
-        System.out.println("studentResList"+studentResList.toString());
         List<StudyRes> studyResList = studyService.getStudyList(1L);
-//        System.out.println("studyResList"+studyResList);
         modelAndView.addObject("studentList",studentResList);
         modelAndView.addObject("studyList",studyResList);
         modelAndView.setViewName("attend");

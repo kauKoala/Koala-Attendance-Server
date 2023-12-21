@@ -35,10 +35,8 @@ public class HistoryService {
 
         //for문으로 주별, 학생별 history를 돌린다.
         for (StudentRes studentRes : studentResList) {
-            for (int week = 0; week < studyCount; week++) { //이후 크롤링은 두번째 주차부터 돌린다.
+            for (int week = 1; week <= studyCount; week++) { //이후 크롤링은 두번째 주차부터 돌린다.
                 Optional<History> history = historyRepository.findAllByStudyIdAndWeekIdAndStudentId(studyId, week, studentRes.getId());
-                System.out.println("here, "+ week);
-                System.out.println(history);
                 if (history.isPresent()) {
                     boolean isSolved = checkProblemsSolvedThisWeek(history.get()); //이후 수정 필요
                     boolean isWritten = checkTistoryWrittenThisWeek(history.get());
