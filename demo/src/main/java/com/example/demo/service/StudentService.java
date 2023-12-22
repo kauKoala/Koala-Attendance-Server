@@ -4,7 +4,11 @@ import com.example.demo.config.resTemplate.ResponseException;
 import com.example.demo.controller.dto.StudentReq;
 import com.example.demo.controller.dto.StudentRes;
 import com.example.demo.domain.Student;
+import com.example.demo.domain.Student_Study;
+import com.example.demo.domain.Study;
 import com.example.demo.repository.StudentRepository;
+import com.example.demo.repository.StudentStudyRepository;
+import com.example.demo.repository.StudyRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import static com.example.demo.config.resTemplate.ResponseTemplateStatus.DUPLICATE_STUDENT;
+import static com.example.demo.config.resTemplate.ResponseTemplateStatus.*;
 
 @Service
 @RequiredArgsConstructor
@@ -23,6 +27,8 @@ public class StudentService {
 
     @Autowired
     private final StudentRepository studentRepository;
+    private final StudentStudyRepository studentStudyRepository;
+    private final StudyRepository studyRepository;
 
     public String createStudent(StudentReq studentReq) throws ResponseException {
 
@@ -49,17 +55,50 @@ public class StudentService {
         return studentResList;
     }
 
-    public void removeStudyFromStudyList(List<Long> studentIdList, Long studyId) throws ResponseException{
-        // 일단 그 스터디가 student DB에 연동이 되어있는지를 본다.
-        // 연동 안되어있으면 delete 할 필요 없음
-        studentRepository.deleteStudyByStudyId(studyId);
+    public void removeStudyFromStudyList(List<Long> studentIdList, Long studyId) throws ResponseException {
+        for (Long studentId : studentIdList) {
+            Optional<Student> optionalStudent = studentRepository.findById(studentId);
+            if (optionalStudent.isPresent()) {
+                Student student = optionalStudent.get(); // 수정 필요
+                List<Student_Study> studentStudies = studentStudyRepository.findStudentStudiesByStudentId(student.getId());
+                boolean isStudyLinked = studentStudies.stream()
+                        .anyMatch(ss -> ss.getStudy().getId().equals(studyId)); //이 테이블 안에 그 studyId가 있는지 확인
 
+                if (isStudyLinked) {
+                    studentStudies.removeIf(ss -> ss.getStudy().getId().equals(studyId));
+                } else {
+                    throw new ResponseException(STUDY_NOT_FOUND_FOR_STUDENT);
+                }
+            } else {
+                throw new ResponseException(STUDENT_NOT_FOUND);
+            }
+        }
     }
 
-    public void addStudyToStudyList(List<Long> studentIdList, Long studyId) throws ResponseException{
-        //이미 추가가 되어있는지 본다.
-        //추가 안 되어있으면 추가
+    public void addStudyToStudyList(List<Long> studentIdList, Long studyId) throws ResponseException {
+        for (Long studentId : studentIdList) {
+            List<Student_Study> studentStudies = studentStudyRepository.findStudentStudiesByStudentId(studentId);
+            //이미 해당 StudyId가 포함되어있는지 확인
+            boolean isStudyLinked = studentStudies.stream()
+                    .anyMatch(ss -> ss.getStudy().getId().equals(studyId));
+
+            if (!isStudyLinked) {
+                Student student = studentRepository.findById(studentId)
+                        .orElseThrow(() -> new ResponseException(STUDENT_NOT_FOUND));
+
+                Study study = studyRepository.findById(studyId)
+                        .orElseThrow(() -> new ResponseException(STUDY_NOT_FOUND));
+
+                Student_Study newStudentStudy = new Student_Study();
+                newStudentStudy.setStudent(student);
+                newStudentStudy.setStudy(study);
+
+                studentStudyRepository.save(newStudentStudy);
+            }
+        }
     }
+
+
 
     public List<StudentRes> getStudentListByStudyId(Long studyId) throws ResponseException{
         List<Student> studentList = studentRepository.findByStudiesStudyId(studyId);

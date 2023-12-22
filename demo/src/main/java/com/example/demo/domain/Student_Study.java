@@ -3,13 +3,16 @@ package com.example.demo.domain;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
-@Getter
+@Getter @Setter
 @NoArgsConstructor
 public class Student_Study {
+
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="studentstudy_id")
     private Long id;
 
     @ManyToOne

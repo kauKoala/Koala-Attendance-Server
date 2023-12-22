@@ -83,17 +83,28 @@ public class ViewController {
         return "list";
     }
 
-//    @RequestMapping("/attend-api")
-//    public String attendapi(@ModelAttribute //학생리스트와 스터디, Model model) {
-//        try {
-//
-//        } catch(){
-//
-//        }
-//
-//        return "attend";
-//    }
-
+    @RequestMapping("/attend-api")
+    public String attendapi(@RequestParam(value = "action") String action,
+                            @RequestParam(value = "student", required = false) List<Long> studentIds,
+                            @RequestParam(value = "study", required = false) Long studyId,
+                            Model model) {
+        try {
+            if (action.equals("post")) {
+                if (studentIds != null && studyId != null) {
+                    studentService.addStudyToStudyList(studentIds, studyId);
+                }
+            } else if (action.equals("delete")) {
+                if (studentIds != null && studyId != null) {
+                    studentService.removeStudyFromStudyList(studentIds, studyId);
+                }
+            }
+            model.addAttribute("successMessage", "학생들 스터디 추가 성공");
+        } catch (Exception e) {
+            // 예외 처리
+            model.addAttribute("errorMessage", e.getMessage());
+        }
+        return "attend"; // 변경된 정보를 다시 보여주는 attend 페이지로 이동
+    }
 @RequestMapping(value="/")
 public String home() {
         return "index";

@@ -39,7 +39,7 @@
 <div class="container p-4 my-4 border">
     <h4 >스터디 참가 조정</h4>
     <div class="w-50 m-auto">
-        <form action="/attend-register" method="post">
+        <form action="/attend-api" method="post">
             <div style="display: flex; justify-content: space-between;" >
             <fieldset>
                 <legend>학생 선택</legend>
