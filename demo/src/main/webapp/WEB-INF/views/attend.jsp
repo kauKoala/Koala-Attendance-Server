@@ -8,6 +8,11 @@
     var studyList = "${studyList}"
     console.log("studyList:",studyList)
 
+    var message = "${message}";
+    if (message){
+        alert(message);
+    }
+
     function checkOnlyOne(element) {
 
         const checkboxes

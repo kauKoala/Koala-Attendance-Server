@@ -8,6 +8,7 @@ import com.example.demo.service.HistoryService;
 import com.example.demo.service.SemesterService;
 import com.example.demo.service.StudentService;
 import com.example.demo.service.StudyService;
+import org.apache.coyote.Response;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -104,69 +105,71 @@ public class ViewController {
             model.addAttribute("errorMessage", e.getMessage());
         }
         return "attend"; // 변경된 정보를 다시 보여주는 attend 페이지로 이동
-    }
-@RequestMapping(value="/")
-public String home() {
-        return "index";
         }
+    @RequestMapping(value="/")
+    public String home() {
+            return "index";
+            }
 
-@RequestMapping(value="/main")
-public String main(Model model) {
+    @RequestMapping(value="/main")
+    public String main(Model model) {
         String year = semesterService.getCurrentYear();
         SemesterType semesterType = semesterService.getCurrentSemesterType();
         model.addAttribute("year", year);
         model.addAttribute("semesterType", semesterType);
         return "main";
-        }
+    }
 
-@RequestMapping(value="/register")
-public String register() {
-        return "register";
-        }
+    @RequestMapping(value="/register")
+    public String register() {
+            return "register";
+            }
 
 
-@RequestMapping(value="/student-register")
-public String studentregister(@ModelAttribute StudentReq studentReq, Model model) {
+    @RequestMapping(value="/student-register")
+    public String studentregister(@ModelAttribute StudentReq studentReq, Model model) {
         try {
-        String name = studentService.createStudent(studentReq);
-        model.addAttribute("message", name+" 학생 등록 성공");
+            String name = studentService.createStudent(studentReq);
+            model.addAttribute("message", name+" 학생 등록 성공");
         } catch (ResponseException e){
-        model.addAttribute("message", e.getMessage());
-        }
+            model.addAttribute("message", e.getMessage());
+            }
         return "register";
-        }
+    }
 
-@RequestMapping(value="/study-register")
-public String studyregister(@ModelAttribute StudyReq studyReq, Model model) {
+    @RequestMapping(value="/study-register")
+    public String studyregister(@ModelAttribute StudyReq studyReq, Model model) {
         try {
-        String name = studyService.createStudy(studyReq);
-        model.addAttribute("message", name+" 스터디 등록 성공");
+            String name = studyService.createStudy(studyReq);
+            model.addAttribute("message", name+" 스터디 등록 성공");
         } catch (ResponseException e){
-        model.addAttribute("message", e.getMessage());
+            model.addAttribute("message", e.getMessage());
         }
         return "register";
+    }
+
+    @RequestMapping(value="/attend")
+    public String attend(ModelAndView modelAndView, Model model) throws ResponseException { //@ModelAttribute Long semesterId - 이후 추가
+
+        try {
+            ArrayList<StudentRes> studentResList = studentService.getStudentList();
+            List<StudyRes> studyResList = studyService.getStudyList(1L);
+            modelAndView.addObject("studentList", studentResList);
+            modelAndView.addObject("studyList", studyResList);
+            modelAndView.setViewName("attend");
+        } catch (ResponseException e){
+            model.addAttribute("message", e.getMessage());
         }
+        return "attend";
+    }
 
-@RequestMapping(value="/attend")
-public ModelAndView attend(ModelAndView modelAndView, Model model) throws ResponseException { //@ModelAttribute Long semesterId - 이후 추가
-
-        ArrayList<StudentRes> studentResList = studentService.getStudentList();
-        List<StudyRes> studyResList = studyService.getStudyList(1L);
-        modelAndView.addObject("studentList",studentResList);
-        modelAndView.addObject("studyList",studyResList);
-        modelAndView.setViewName("attend");
-
-
-        return modelAndView;
-        }
-
-@RequestMapping(value="/alert")
-public String alert() {
+    @RequestMapping(value="/alert")
+    public String alert() {
         return "alert";
-        }
+    }
 
-@RequestMapping(value="/nav")
-public String nav() {
-        return "nav";
+    @RequestMapping(value="/nav")
+    public String nav() {
+            return "nav";
         }
-        }
+    }

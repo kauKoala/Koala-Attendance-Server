@@ -7,6 +7,11 @@
 <%@include file="nav.jsp"%>
 
 <script>
+    var message = "${message}";
+    if (message){
+        alert(message);
+    }
+
     var semesterList = "${semesterList}"
     console.log(semesterList)
 
