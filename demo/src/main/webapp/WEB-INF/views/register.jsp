@@ -47,18 +47,18 @@
 <div class="container p-4 my-4 border">
     <h4 >학생 등록</h4>
     <div class="w-50 m-auto">
-        <form action="/student-register"  method="post">
+        <form action="/student-register"  method="post" onsubmit="return validateAndConfirm('studentForm')">
             <div class="form-group">
                 <label>학생 이름</label>
-                <input type="text" name="name" class="form-control" >
+                <input type="text" name="name" class="form-control" required>
             </div>
             <div class="form-group">
                 <label>백준 이름</label>
-                <input type="text" name="baekjoonName" class="form-control" >
+                <input type="text" name="baekjoonName" class="form-control" required >
             </div>
             <div class="form-group">
                 <label>티스토리 이름</label>
-                <input type="text" name="tistoryName" class="form-control" >
+                <input type="text" name="tistoryName" class="form-control" required >
             </div>
             <button type="submit" class="btn btn-success">Submit</button>
         </form>
@@ -68,27 +68,27 @@
 <div class="container p-4 my-4 border">
     <h4>스터디 등록</h4>
     <div class="w-50 m-auto">
-        <form action="/study-register" method="post">
+        <form action="/study-register" method="post" onsubmit="return validateAndConfirm('studyForm')">
             <div class="form-group">
                 <label>스터디 이름</label>
-                <input type="text" name="name" class="form-control" >
+                <input type="text" name="name" class="form-control" required placeholder="혼동 방지를 위해 기수도 같이 적어주세요!">
             </div>
             <div class="form-group">
                 <label>간단한 소개</label>
-                <input type="text" name="description" class="form-control" >
+                <input type="text" name="description" class="form-control" required >
             </div>
             <div class="form-group">
                 <label>주차 추가</label>
                 <div style="display: flex">
                 <div id="startDateFields" style="margin-right:15px">
-                    <input type="date" name="startDate" id="startDate" value="" max="9999-12-31">
+                    <input type="date" name="startDate" id="startDate" value="" max="9999-12-31" placeholder="년도를 주의해 주세요!">
                 </div>
                 <button type="button" onclick="addStartDateField()">시작일 추가</button>
                 <ul id="weekList"></ul>
                 </div>
             </div>
             <input type="hidden" name="studyWeeks" id="datearrInput">
-            <button type="submit" class="btn btn-success">Submit</button>
+            <button type="button" class="btn btn-success">Submit</button>
         </form>
     </div>
 </div>
