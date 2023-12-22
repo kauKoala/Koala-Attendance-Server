@@ -46,14 +46,14 @@ public class StudentController {
                 }
         }
 
-        @ResponseBody
-        @GetMapping("/student/study")
-        public ResponseTemplate<List<StudentRes>> getStudentListByStudyId(@RequestParam Long studyId){
-            try {
-                List<StudentRes> studentResList = studentService.getStudentListByStudyId(studyId);
-                return new ResponseTemplate<>(studentResList);
-            } catch (ResponseException e){
-                return new ResponseTemplate<>((e.getStatus()));
-            }
+    @ResponseBody
+    @GetMapping("/study/{studyId}/student")
+    public ResponseTemplate<List<StudentRes>> getStudentListByStudyId(@PathVariable Long studyId) {
+        try {
+            List<StudentRes> studentResList = studentService.getStudentListByStudyId(studyId);
+            return new ResponseTemplate<>(studentResList);
+        } catch (ResponseException e) {
+            return new ResponseTemplate<>((e.getStatus()));
         }
+    }
 }
