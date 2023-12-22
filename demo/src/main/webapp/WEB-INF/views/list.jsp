@@ -66,7 +66,11 @@
         Map<String, Map<Integer, String>> studentMap_baekjoon = new HashMap<>(); // 이름:[주차, OX] // 백준
         Map<String, Map<Integer, String>> studentMap_tistory = new HashMap<>(); // 이름:[주차, OX] // 티스토리
 
-        // historyResList가 null이 아니고 비어있지 않을 경우에만 맵 생성 로직 수행
+        int max_week = 0;
+
+        if (historyResList != null && !historyResList.isEmpty()) {
+            max_week = historyResList.size();
+        }
         if (historyResList != null && !historyResList.isEmpty()) {
             for (HistoriesRes history : historyResList) {
                 String studentName = history.getStudentName();
@@ -91,23 +95,16 @@
         <thead>
         <tr>
             <th>학생</th>
-            <th>1주차</th>
-            <th>2주차</th>
-            <th>3주차</th>
-            <th>4주차</th>
-            <th>5주차</th>
-            <th>6주차</th>
-            <th>7주차</th>
-            <th>8주차</th>
-
-            <!-- 일단 하드코딩 -->
+            <% for (int week = 1; week <= max_week; week++) { %>
+            <th><%= week %>주차</th>
+            <% } %>
         </tr>
         </thead>
         <tbody>
         <% for (Map.Entry<String, Map<Integer, String>> entry : studentMap_baekjoon.entrySet()) { %>
         <tr>
             <td><%= entry.getKey() %></td>
-            <% for (int week = 1; week <= 8; week++) { %>
+            <% for (int week = 1; week <= max_week; week++) { %>
             <td><%= entry.getValue().getOrDefault(week, "-") %></td>
             <% } %>
         </tr>
@@ -119,22 +116,17 @@
         <thead>
         <tr>
             <th>학생</th>
-            <th>1주차</th>
-            <th>2주차</th>
-            <th>3주차</th>
-            <th>4주차</th>
-            <th>5주차</th>
-            <th>6주차</th>
-            <th>7주차</th>
-            <th>8주차</th>
-            <!-- 일단 하드코딩 -->
+            <% for (int week = 1; week <= max_week; week++) { %>
+            <th><%= week %>주차</th>
+            <% } %>
         </tr>
         </thead>
+
         <tbody>
         <% for (Map.Entry<String, Map<Integer, String>> entry : studentMap_tistory.entrySet()) { %>
         <tr>
             <td><%= entry.getKey() %></td>
-            <% for (int week = 1; week <= 8; week++) { %>
+            <% for (int week = 1; week <= max_week; week++) { %>
             <td><%= entry.getValue().getOrDefault(week, "-") %></td>
             <% } %>
         </tr>
