@@ -88,7 +88,7 @@
                 </div>
             </div>
             <input type="hidden" name="studyWeeks" id="datearrInput">
-            <button type="button" class="btn btn-success">Submit</button>
+            <button type="submit" value="button" class="btn btn-success">Submit</button>
         </form>
     </div>
 </div>

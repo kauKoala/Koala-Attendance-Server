@@ -41,7 +41,7 @@
 
     <div class="d-flex justify-content-between">
         출 석 부 목 록
-        <form action="/history" method="post" class="form-inline; d-flex justify-content-around" > <!--여기에서 select한 걸로 post 보낼 거니까-->
+        <form action="/history" method="get" class="form-inline; d-flex justify-content-around" >
             <select id="semesterName" class="form-select form-select-lg" style="margin-right: 2px" onclick="changeSemester(this)">
                 <c:choose>
                     <c:when test="${not empty selectedSemester}">
@@ -54,14 +54,14 @@
                     </c:otherwise>
                 </c:choose>
             </select>
-            <select id = "studyName" class="form-select form-select-lg" style="margin-right: 2px">
+            <select id = "studyName" name="studyId" class="form-select form-select-lg" style="margin-right: 2px">
                 <c:forEach var="studyName" items="${studyList}">
-                    <option value="${studyName.name}">${studyName.name}</option>
+                    <option value="${studyName.id}">${studyName.name}</option>
                 </c:forEach>
             </select>
             <br>
             <input type="hidden" name="selectedValue" value="studyName">
-            <input type="submit" value="선택" class="btn btn-outline-primary btn-sm" onclick=""/>
+            <input type="submit" value="선택" class="btn btn-outline-primary btn-sm" />
         </form>
     </div>
 

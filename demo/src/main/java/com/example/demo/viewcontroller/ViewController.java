@@ -69,14 +69,15 @@ public class ViewController {
         }
 
         // 처리할 수 없는 경우 예외 처리 또는 다른 작업 수행
-        return "error";
+        return "customerror";
     }
 
     @RequestMapping("/history")
-    public String historylist(@ModelAttribute HistoryReq historyReq, Model model){
-        try{
+    public String historylist(@RequestParam(value = "studyId", required = false) Long studyId,
+                              Model model) {
+        try {
             //히스토리를 찾는다
-            List<HistoriesRes> historyResList = historyService.getHistoryList(1L); //일단 하드코딩
+            List<HistoriesRes> historyResList = historyService.getHistoryList(studyId); //일단 하드코딩
             model.addAttribute("historyResList",historyResList);
         } catch(ResponseException e) {
             model.addAttribute("message", e.getMessage());
@@ -154,8 +155,8 @@ public class ViewController {
         try {
             ArrayList<StudentRes> studentResList = studentService.getStudentList();
             List<StudyRes> studyResList = studyService.getStudyList(1L);
-            modelAndView.addObject("studentList", studentResList);
-            modelAndView.addObject("studyList", studyResList);
+            model.addAttribute("studentList", studentResList);
+            model.addAttribute("studyList", studyResList);
             modelAndView.setViewName("attend");
         } catch (ResponseException e){
             model.addAttribute("message", e.getMessage());
@@ -172,4 +173,9 @@ public class ViewController {
     public String nav() {
             return "nav";
         }
+
+    @RequestMapping(value = "/customerror")
+    public String error() {
+        return "customerror";
+    }
     }
