@@ -9,4 +9,5 @@ public interface StudentStudyRepository extends JpaRepository<Student_Study, Lon
 
     List<Student_Study> findStudentStudiesByStudentId(Long studentId);
 
+    List<Student_Study> findStudent_StudiesByStudyId(Long studyId);
 }

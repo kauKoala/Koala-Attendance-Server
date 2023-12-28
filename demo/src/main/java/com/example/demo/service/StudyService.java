@@ -1,7 +1,6 @@
 package com.example.demo.service;
 
 import com.example.demo.config.resTemplate.ResponseException;
-import com.example.demo.controller.dto.HistoryReq;
 import com.example.demo.controller.dto.StudyReq;
 import com.example.demo.controller.dto.StudyRes;
 import com.example.demo.domain.Study;
