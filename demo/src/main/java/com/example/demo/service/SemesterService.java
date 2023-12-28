@@ -68,12 +68,13 @@ public class SemesterService {
         return semester.getId();
     }
 
-    public List<String> getAllSemester(){
+    public List<SemesterRes> getAllSemester(){
         List<Semester> semesterList = semesterRepository.findAll();
-        List<String> semesterNameList = new ArrayList<>();
+        List<SemesterRes> semesterNameList = new ArrayList<>();
 
         for (Semester semester: semesterList){
-            semesterNameList.add(semester.getYear().toString() + " " + semester.getSemesterType());
+            SemesterRes semesterRes = new SemesterRes(semester.getId(), semester.getYear(), semester.getSemesterType());
+            semesterNameList.add(semesterRes);
         }
         return semesterNameList;
     }

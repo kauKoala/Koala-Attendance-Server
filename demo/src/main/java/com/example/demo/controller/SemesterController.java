@@ -18,16 +18,6 @@ public class SemesterController {
     @Autowired
     private final SemesterService semesterService;
 
-    @ResponseBody
-    @GetMapping("/semesterInfo")
-    @Operation(summary = "학기 자동 반환 API", description = "현재가 몇 년도 몇 학기인지 자동으로 반환합니다.")
-    public ResponseTemplate<SemesterRes> getSemester(){
-        String year = semesterService.getCurrentYear();
-        SemesterType semesterType = semesterService.getCurrentSemesterType();
-
-        return new ResponseTemplate<>(new SemesterRes(year, semesterType));
-
-    }
 
     @ResponseBody
     @GetMapping("/count")

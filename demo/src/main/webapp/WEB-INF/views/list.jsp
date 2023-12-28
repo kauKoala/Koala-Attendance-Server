@@ -23,8 +23,7 @@
 
     function changeSemester(select) {
         var selectedSemester = select.value;
-        console.log('화면 재렌더링', encodeURIComponent(selectedSemester))
-        window.location.href = '/studylist?semesterName=' + encodeURIComponent(selectedSemester);
+        window.location.href = '/studylist?semesterId=' +selectedSemester;
     }
 
     function selectStudy() {
@@ -45,11 +44,11 @@
             <select id="semesterName" class="form-select form-select-lg" style="margin-right: 2px" onclick="changeSemester(this)">
                 <c:choose>
                     <c:when test="${not empty selectedSemester}">
-                        <option value="${selectedSemester}">${selectedSemester}</option>
+                        <option value="${selectedSemester.id}">${selectedSemester}</option>
                     </c:when>
                     <c:otherwise>
                         <c:forEach var="semesterName" items="${semesterList}">
-                            <option value="${semesterName}">${semesterName}</option>
+                            <option value="${semesterName.id}">${semesterName.year} ${semesterName.semesterType}</option>
                         </c:forEach>
                     </c:otherwise>
                 </c:choose>
