@@ -38,34 +38,22 @@ public class ViewController {
 
     @RequestMapping("/list")
     public String list(Model model) {
-        List<String> semesterList= semesterService.getAllSemester();
+        List<SemesterRes> semesterList= semesterService.getAllSemester();
 
         model.addAttribute("semesterList", semesterList);
         return "list";
     }
 
     @RequestMapping("/studylist")
-    public String studylist(@RequestParam("semesterName") String encodedSemesterName, Model model) throws ResponseException {
+    public String studylist(@RequestParam("semesterId") Long semesterId, Model model) throws ResponseException {
         String semesterName = null;
         try {
-            semesterName = URLDecoder.decode(encodedSemesterName, "UTF-8");  //RESTFul 개선 필요
-
-            String[] parts = semesterName.split(" ");
-
-            if (parts.length == 2) {
-                String year = parts[0];
-                String semesterType = parts[1];
-                Semester semester = semesterService.findByYearAndSemesterType(year, SemesterType.valueOf(semesterType));
-
-                if (semester != null) {
-                    List<StudyRes> studyList = studyService.getStudyList(semester.getId());
-                    model.addAttribute("studyList", studyList);
-                    model.addAttribute("selectedSemester", semesterName);
-                    return "list";
-                }
-            }
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace(); // 예외 처리
+            List<StudyRes> studyList = studyService.getStudyList(semesterId);
+            model.addAttribute("studyList", studyList);
+            model.addAttribute("selectedSemester", semesterName);
+            return "list";
+        } catch (ResponseException e) {
+            model.addAttribute("message", e.getMessage());
         }
 
         // 처리할 수 없는 경우 예외 처리 또는 다른 작업 수행
