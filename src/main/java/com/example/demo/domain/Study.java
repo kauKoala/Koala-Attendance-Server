@@ -34,4 +34,5 @@ public class Study {
         this.description = description;
         this.weeks = studyWeeks;
     }
+
 }

@@ -53,9 +53,6 @@ public class Historytest {
                 Long historyId = history.getId();
                 System.out.println("historyId:"+historyId);
             }
-
         }
-
     }
-
 }

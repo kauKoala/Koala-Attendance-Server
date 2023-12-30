@@ -32,4 +32,5 @@ public class History {
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name="week_id")
     private Week week;
+
 }
