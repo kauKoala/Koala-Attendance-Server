@@ -34,5 +34,4 @@ public class Semester {
     public void addStudy(Study study){
         studyList.add(study);
     }
-
 }
