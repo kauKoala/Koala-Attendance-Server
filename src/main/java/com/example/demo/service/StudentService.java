@@ -109,4 +109,9 @@ public class StudentService {
         return studentResList;
     }
 
+    public Student getStudentById(Long studentId) throws ResponseException{
+        Optional<Student> student = studentRepository.findById(studentId);
+        return student.orElseThrow(() -> new ResponseException(STUDENT_NOT_FOUND));
+    }
+
 }

@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface HistoryRepository extends JpaRepository <History, Long> {
+public interface HistoryRepository extends JpaRepository<History, Long> {
 
     /* TODO
     * semesterId 와 Join 해서 가져오는 로직 필요

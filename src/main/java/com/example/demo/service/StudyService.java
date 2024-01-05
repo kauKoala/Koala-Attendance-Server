@@ -12,6 +12,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -63,6 +64,24 @@ public class StudyService {
         } else {
             throw new ResponseException(STUDY_NOT_FOUND);
         }
+    }
+
+    public Long findWeekIdByTodayStartDate(Long studyId) throws ResponseException {
+        Study study = studyRepository.findById(studyId)
+                .orElseThrow(() -> new ResponseException(STUDY_NOT_FOUND));
+
+        LocalDate today = LocalDate.now();
+        Optional<Long> weekId = study.getWeeks().stream()
+                .filter(week -> week.getStartDate().equals(today))
+                .map(Week::getId)
+                .findFirst();
+
+        return weekId.orElseThrow(() -> new ResponseException(WEEK_NOT_FOUND)); // 찾은 weekId가 없을 경우 null 반환
+    }
+
+    public Study getStudyById(Long studyId) throws ResponseException{
+        Optional<Study> study = studyRepository.findById(studyId);
+        return study.orElseThrow(() -> new ResponseException(STUDY_NOT_FOUND));
     }
 
 }

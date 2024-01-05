@@ -25,6 +25,7 @@ public enum ResponseTemplateStatus {
 
     //6000: Week Request
     DUPLICATE_WEEK(false, "해당 학기에 이미 주를 추가하였습니다.", 6000),
+    WEEK_NOT_FOUND(false, "해당 주가 없습니다.", 6001),
 
     //7000: History Request
     HISTORY_NOT_FOUND(false, "해당 스터디에 히스토리가 존재하지 않습니다.", 7001),
