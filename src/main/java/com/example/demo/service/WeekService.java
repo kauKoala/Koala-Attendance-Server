@@ -2,7 +2,7 @@ package com.example.demo.service;
 
 
 import com.example.demo.config.resTemplate.ResponseException;
-import com.example.demo.controller.dto.WeekReq;
+import com.example.demo.domain.Student;
 import com.example.demo.domain.Week;
 import com.example.demo.repository.WeekRepository;
 import io.swagger.v3.oas.annotations.Operation;
@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import static com.example.demo.config.resTemplate.ResponseTemplateStatus.DUPLICATE_WEEK;
+import static com.example.demo.config.resTemplate.ResponseTemplateStatus.*;
 
 @Service
 @RequiredArgsConstructor
@@ -45,5 +45,10 @@ public class WeekService {
             }
         }
         return weekList2;
+    }
+
+    public Week getWeekById(Long weekId) throws ResponseException{
+        Optional<Week> week = weekRepository.findById(weekId);
+        return week.orElseThrow(() -> new ResponseException(WEEK_NOT_FOUND));
     }
 }
