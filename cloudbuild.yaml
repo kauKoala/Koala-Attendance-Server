@@ -18,3 +18,4 @@
       - 'asia-northeast1'
   images:
   - 'gcr.io/cloudrun/koala-server:$COMMIT_SHA'
+
