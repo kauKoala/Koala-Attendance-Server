@@ -13,6 +13,8 @@ COPY src ./src
 RUN ls
 # 프로젝트 빌드
 RUN ./gradlew clean build
-RUN ls
+RUN ls build/libs
 # 애플리케이션 실행을 위한 명령
-CMD ["java", "-jar", "build/libs/koala.war"]
+COPY build/libs/*-plain.war app.war
+ENV PORT=${PORT:-8082}
+CMD ["java", "-jar", "/app.war"]
