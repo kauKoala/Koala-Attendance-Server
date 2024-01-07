@@ -11,6 +11,7 @@
     args:
       - 'run'
       - 'deploy'
+      - 'koalaserver'
       - '--image'
       - 'gcr.io/cloudrun/placeholder:$COMMIT_SHA'
       - '--region'
