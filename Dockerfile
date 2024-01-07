@@ -1,6 +1,6 @@
-FROM tomcat:latest
+FROM openjdk:17-jdk
 VOLUME /tmp
 ARG WAR_FILE
-COPY ${WAR_FILE} /usr/local/tomcat/webapps/app.war
+COPY ${WAR_FILE} app.war
 ENV PORT=${PORT:-8082}
-CMD ["catalina.sh", "run"]
+ENTRYPOINT ["java", "-jar", "/app.war"]
