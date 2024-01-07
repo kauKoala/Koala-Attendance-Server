@@ -1,5 +1,5 @@
 FROM openjdk:17-jdk
-WORKDIR /app
-COPY . .
-RUN ./gradlew bootWar
-CMD ["java", "-jar", "build/libs/koala.war"]
+ARG WAR_FILE=build/libs/koala.war
+COPY ${WAR_FILE} app.war
+ENV PORT=${PORT:-8082}
+CMD ["java", "-jar", "/app.war"]
