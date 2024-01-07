@@ -5,7 +5,6 @@
 *application.properties
 out/*
 build/*
-*application.yml
 gradle
 .gradle/
 .gradle/8.2
