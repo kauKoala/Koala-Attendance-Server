@@ -1,3 +1,4 @@
+steps:
   # Build the container image
   - name: 'gcr.io/cloud-builders/docker'
     args: ['build', '-t', 'gcr.io/cloudrun/placeholder:$COMMIT_SHA', '.']
