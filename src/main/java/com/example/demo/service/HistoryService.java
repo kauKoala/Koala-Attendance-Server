@@ -43,7 +43,7 @@ public class HistoryService {
             Long weekId = studyService.findWeekIdByTodayStartDate(studyRes.getId());
             List<Student_Study> student_studyList = studentStudyRepository.findStudent_StudiesByStudyId(studyRes.getId());
             for (Student_Study student_study: student_studyList){
-                CrawlingReq crawlingReq = new CrawlingReq(student_study.getStudy().getId(),student_study.getStudent().getId(),weekId);
+                CrawlingReq crawlingReq = new CrawlingReq(student_study.getStudy().getId(),student_study.getStudent().getId(),student_study.getStudent().getName(),weekId);
                 crawlingReqList.add(crawlingReq);
             }
         }

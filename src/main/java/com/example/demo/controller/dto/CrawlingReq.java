@@ -12,5 +12,7 @@ public class CrawlingReq {
 
     private Long studentId;
 
+    private String studentName;
+
     private Long WeekId;
 }
