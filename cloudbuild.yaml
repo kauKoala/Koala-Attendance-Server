@@ -1,10 +1,4 @@
   steps:
-  # Build the application using Gradle bootWar
-  - name: 'gradle:7.3.3-jdk17' # Use the appropriate Gradle image version
-    entrypoint: 'bash'
-    args:
-      - '-c'
-      - './gradlew clean build'
   # Build the container image
   - name: 'gcr.io/cloud-builders/docker'
     args: ['build', '-t', 'gcr.io/cloudrun/placeholder:$COMMIT_SHA', '.']
@@ -17,7 +11,7 @@
     args:
       - 'run'
       - 'deploy'
-      - 'koala-attendance-server'
+      - 'placeholder'
       - '--image'
       - 'gcr.io/cloudrun/placeholder:$COMMIT_SHA'
       - '--region'
