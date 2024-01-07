@@ -3,7 +3,7 @@ VOLUME /tmp
 RUN rm -Rf /usr/local/tomcat/webapps/ROOT
 ARG WAR_FILE
 COPY ${WAR_FILE} /usr/local/tomcat/webapps/ROOT.war
-ENV PORT=${PORT:-8082}
+ENV PORT=${PORT:-8080}
 EXPOSE ${PORT}
 CMD ["catalina.sh", "run"]
 

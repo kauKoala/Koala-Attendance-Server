@@ -6,4 +6,3 @@
 out/*
 build/
 .gradle/
-*application.yml
