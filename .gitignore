@@ -5,4 +5,5 @@
 *application.properties
 out/*
 build/
+.gradle/
 *application.yml
