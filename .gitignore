@@ -4,8 +4,5 @@
 .idea/
 *application.properties
 out/*
-build/*
-*application.yml
-gradle
+build/
 .gradle/
-.gradle/8.2
