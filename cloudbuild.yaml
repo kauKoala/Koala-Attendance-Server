@@ -1,4 +1,4 @@
-steps:
+  steps:
   # Build the container image
   - name: 'gcr.io/cloud-builders/docker'
     args: ['build', '-t', 'gcr.io/cloudrun/placeholder:$COMMIT_SHA', '.']
@@ -16,5 +16,5 @@ steps:
       - 'gcr.io/cloudrun/placeholder:$COMMIT_SHA'
       - '--region'
       - 'asia-northeast1'
-images:
+  images:
   - 'gcr.io/cloudrun/placeholder:$COMMIT_SHA'
