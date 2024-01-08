@@ -6,7 +6,9 @@
       - 'clean'
       - 'bootWar'
   - name: 'gcr.io/cloud-builders/docker'
+    entrypoint: 'docker'
     args:
+      - 'buildx'
       - 'build'
       - '--platform'
       - 'linux/amd64'
