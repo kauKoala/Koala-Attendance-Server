@@ -8,7 +8,7 @@
   - name: 'gcr.io/cloud-builders/docker'
     entrypoint: 'docker'
     args:
-      - 'buildx build'
+      - 'build'
       - '--platform'
       - 'linux/amd64'
       - '-t'
