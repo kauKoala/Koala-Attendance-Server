@@ -10,7 +10,7 @@
     args:
       - 'build'
       - '--platform'
-      - 'linux/amd64'
+      - 'linux/arm64/v8'
       - '-t'
       - 'gcr.io/koalaserver/koala-server:$COMMIT_SHA'
       - '.'
