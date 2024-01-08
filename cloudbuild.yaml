@@ -6,7 +6,13 @@
       - 'clean'
       - 'bootWar'
   - name: 'gcr.io/cloud-builders/docker'
-    args: ['build', '-t', 'asia-northeast1-docker.pkg.dev/koalaserver/cloud-run-source-deploy/koala-attendance-server/koala-server@sha256:$COMMIT_SHA', '.']
+    args:
+      - 'build'
+      - '--platform'
+      - 'linux/amd64'
+      - '-t'
+      - 'asia-northeast1-docker.pkg.dev/koalaserver/cloud-run-source-deploy/koala-attendance-server/koala-server@sha256:$COMMIT_SHA'
+      - '.'
   # Push the container image to Container Registry
   - name: 'gcr.io/cloud-builders/docker'
     args: ['push', 'asia-northeast1-docker.pkg.dev/koalaserver/cloud-run-source-deploy/koala-attendance-server/koala-server@sha256:$COMMIT_SHA']
