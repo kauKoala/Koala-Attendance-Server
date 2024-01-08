@@ -1,23 +1,22 @@
   steps:
   # Build the container image
-  - name: 'gradle'
-    entrypoint: 'gradle'
+  - name: 'gradlew'
+    entrypoint: 'gradlew'
     args:
       - 'clean'
-      - 'bootWar'
+      - 'build'
   - name: 'gcr.io/cloud-builders/docker'
     entrypoint: 'docker'
     args:
-      - 'buildx'
-      - 'build'
+      - 'buildx build'
       - '--platform'
       - 'linux/amd64'
       - '-t'
-      - 'asia-northeast1-docker.pkg.dev/koalaserver/cloud-run-source-deploy/koala-attendance-server/koala-server@sha256:$COMMIT_SHA'
+      - 'gcr.io/koalaserver/koala-server:$COMMIT_SHA'
       - '.'
   # Push the container image to Container Registry
   - name: 'gcr.io/cloud-builders/docker'
-    args: ['push', 'asia-northeast1-docker.pkg.dev/koalaserver/cloud-run-source-deploy/koala-attendance-server/koala-server@sha256:$COMMIT_SHA']
+    args: ['push', 'gcr.io/koalaserver/koala-server:$COMMIT_SHA']
   # Deploy container image to Cloud Run
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
     entrypoint: gcloud
@@ -26,9 +25,9 @@
       - 'deploy'
       - 'koala-server'
       - '--image'
-      - 'asia-northeast1-docker.pkg.dev/koalaserver/cloud-run-source-deploy/koala-attendance-server/koala-server@sha256:$COMMIT_SHA'
+      - 'gcr.io/koalaserver/koala-server:$COMMIT_SHA'
       - '--region'
       - 'asia-northeast1'
   images:
-  - 'asia-northeast1-docker.pkg.dev/koalaserver/cloud-run-source-deploy/koala-attendance-server/koala-server@sha256:$COMMIT_SHA'
+  - 'gcr.io/koalaserver/koala-server:$COMMIT_SHA'
 
