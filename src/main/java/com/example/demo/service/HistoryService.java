@@ -11,13 +11,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
-import java.util.Arrays;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Optional;
-
-import static com.example.demo.config.resTemplate.ResponseTemplateStatus.HISTORY_NOT_FOUND;
 
 @Service
 @RequiredArgsConstructor
@@ -33,7 +29,7 @@ public class HistoryService {
     private final BaekjoonHistoryRepository baekjoonHistoryRepository;
     private final WeekService weekService;
 
-    public List<CrawlingReq> getInfoForHistoryCrawling() throws ResponseException {
+    public List<CrawlingReq> getBaekjoonInfoForHistoryCrawling() throws ResponseException {
         List<CrawlingReq> crawlingReqList = new ArrayList<>();
         //현재 학기에 존재하는 studyList가져온다.
         Semester semester = semesterService.getCurrentSemester();
@@ -50,7 +46,7 @@ public class HistoryService {
         return crawlingReqList;
     }
 
-    public void getHistoryCrawlingResult(List<CrawlingRes> crawlingResList) throws Exception {
+    public void getBaekjoonCrawlingResult(List<CrawlingRes> crawlingResList) throws Exception {
         try{
             //history로 만들어 저장하는 작업
             for (CrawlingRes crawlingRes:crawlingResList) {
@@ -58,10 +54,34 @@ public class HistoryService {
                 Study study = studyService.getStudyById(crawlingRes.getStudyId());
                 Week week = weekService.getWeekById(crawlingRes.getWeekId());
 
-                History history = new History(student, study, week, crawlingRes.getWrittenTistoryWeek());
+                History history = new History(student, study, week);
                 historyRepository.save(history);
                 BaekjoonHistory baekjoonHistory = new BaekjoonHistory(history.getId(), crawlingRes.getSolvedBaekjoon());
                 baekjoonHistoryRepository.save(baekjoonHistory);
+            }
+        } catch (Exception e){
+            throw e;
+        }
+    }
+
+    public void getTistoryCrawlingResult(List<CrawlingTistoryRes> crawlingTistoryResList) throws Exception {
+        try{
+            //history로 만들어 저장하는 작업
+            for (CrawlingTistoryRes crawlingTistoryRes:crawlingTistoryResList) {
+
+                Student student = studentService.getStudentByTistoryName(crawlingTistoryRes.getWriterName());
+                Week week = weekService.getWeekById(crawlingTistoryRes.getWeekId());
+                Study study = studyService.getStudyById(crawlingTistoryRes.getStudyId());
+
+                //history를 먼저 찾고 없으면 생성하고, 있으면 해당 history의 tistory 갯수 업데이트
+                Optional<History> history = historyRepository.findAllByStudyIdAndWeekIdAndStudentId(study.getId(), week.getId(), student.getId());
+                if (history.isEmpty()){
+                    History newHistory = new History(student, study, week);
+                    newHistory.addTistoryWeek(1);
+                    historyRepository.save(newHistory);
+                } else {
+                    history.get().addTistoryWeek(1);
+                }
             }
         } catch (Exception e){
             throw e;
@@ -79,12 +99,13 @@ public class HistoryService {
 
         //for문으로 주별, 학생별 history를 돌린다.
         for (StudentRes studentRes : studentResList) {
-            for (int week = 1; week <= studyCount; week++) { //이후 크롤링은 두번째 주차부터 돌린다.
-                Optional<History> history = historyRepository.findAllByStudyIdAndWeekIdAndStudentId(studyId, week, studentRes.getId());
+            List<Week> weekList = weekService.getWeekListByStudyId(studyId);
+            for (int weekNum = 0; weekNum < weekList.size(); weekNum++) {
+                Optional<History> history = historyRepository.findAllByStudyIdAndWeekIdAndStudentId(studyId, weekList.get(weekNum).getId(), studentRes.getId());
                 if (history.isPresent()) {
                     boolean isSolved = checkProblemsSolvedThisWeek(history.get()); //이후 수정 필요
                     boolean isWritten = checkTistoryWrittenThisWeek(history.get());
-                    HistoriesRes historyListRes = new HistoriesRes(studentRes.getName(), week, isSolved, isWritten);
+                    HistoriesRes historyListRes = new HistoriesRes(studentRes.getName(), weekNum+1, isSolved, isWritten);
                     historyResList.add(historyListRes);
                 }
             }

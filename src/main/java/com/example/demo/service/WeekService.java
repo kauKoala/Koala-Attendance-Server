@@ -4,11 +4,11 @@ package com.example.demo.service;
 import com.example.demo.config.resTemplate.ResponseException;
 import com.example.demo.domain.Student;
 import com.example.demo.domain.Week;
+import com.example.demo.repository.StudyRepository;
 import com.example.demo.repository.WeekRepository;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cglib.core.Local;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -25,6 +25,7 @@ public class WeekService {
 
     @Autowired
     private final WeekRepository weekRepository;
+    private final StudyRepository studyRepository;
 
     @Operation(summary = "Week 생성 API", description = "학기 별 Week 를 생성합니다.")
     public List<Week> createWeekList(List<String> stringDateList) throws ResponseException{
@@ -34,15 +35,11 @@ public class WeekService {
         List<Week> weekList2 = new ArrayList<>();
         for (int i = 1; i <= weekList.size(); i++){
             LocalDate element = weekList.get(i-1);
-            Optional<Week> week = weekRepository.findByStartDate(element);
-            if (week.isEmpty()){
-                Week newWeek = new Week(i, element);
 
-                weekRepository.save(newWeek);
-                weekList2.add(newWeek);
-            } else {
-                weekList2.add(week.get());
-            }
+            Week newWeek = new Week(i, element);
+
+            weekRepository.save(newWeek);
+            weekList2.add(newWeek);
         }
         return weekList2;
     }
@@ -50,5 +47,15 @@ public class WeekService {
     public Week getWeekById(Long weekId) throws ResponseException{
         Optional<Week> week = weekRepository.findById(weekId);
         return week.orElseThrow(() -> new ResponseException(WEEK_NOT_FOUND));
+    }
+
+    public Long getWeekIdByStartDateAndStudyId(LocalDate date, Long studyId) throws ResponseException{
+
+        Optional<Week> week = weekRepository.findByStartDateAndStudyId(date, studyId);
+        return week.orElseThrow(() ->new ResponseException(WEEK_NOT_FOUND)).getId();
+    }
+
+    public List<Week> getWeekListByStudyId(Long studyId) {
+        return studyRepository.findWeekByStudyId(studyId);
     }
 }

@@ -21,6 +21,9 @@ public class Week {
     private int weekNumber; //1주차, 2주차 ..
     private LocalDate startDate; // 시작 날짜
     private LocalDate endDate; // 종료 날짜
+    @ManyToOne
+    @JoinColumn(name = "study_id")
+    private Study study;
 
     @Builder
     public Week(int weekNumber, LocalDate startDate){

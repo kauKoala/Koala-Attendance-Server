@@ -32,11 +32,15 @@ public class History {
     @JoinColumn(name="week_id")
     private Week week;
 
-    public History(Student student, Study study, Week week, int writtenTistoryWeek){
+    public History(Student student, Study study, Week week){
         this.student = student;
         this.study = study;
         this.week = week;
-        this.writtenTistoryWeek = writtenTistoryWeek;
+    }
+
+
+    public void addTistoryWeek(int writtenTistoryWeek ){
+        this.writtenTistoryWeek+=writtenTistoryWeek;
     }
 
 }

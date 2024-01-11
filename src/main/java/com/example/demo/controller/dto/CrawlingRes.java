@@ -21,8 +21,6 @@ public class CrawlingRes {
 
     private Long WeekId;
 
-    private int writtenTistoryWeek;
-
     private List<Integer> solvedBaekjoon;
 
 }

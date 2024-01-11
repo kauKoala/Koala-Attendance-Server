@@ -114,4 +114,8 @@ public class StudentService {
         return student.orElseThrow(() -> new ResponseException(STUDENT_NOT_FOUND));
     }
 
+    public Student getStudentByTistoryName(String studentName) throws ResponseException{
+        Optional<Student> student = studentRepository.findByTistoryName(studentName);
+        return student.orElseThrow(() -> new ResponseException(STUDENT_NOT_FOUND));
+    }
 }

@@ -15,6 +15,8 @@ public interface StudentRepository extends JpaRepository<Student, Long> {
 
     Optional<Student> findByBaekjoonName(String baekjoonName);
 
+    Optional<Student> findByTistoryName(String tistoryName);
+
     @Modifying
     @Transactional
     @Query(value = "DELETE FROM Study WHERE id = :studyId", nativeQuery = true)

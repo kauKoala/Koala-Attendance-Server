@@ -2,16 +2,19 @@ package com.example.demo.controller;
 
 import com.example.demo.config.resTemplate.ResponseException;
 import com.example.demo.config.resTemplate.ResponseTemplate;
-import com.example.demo.controller.dto.CrawlingReq;
-import com.example.demo.controller.dto.CrawlingRes;
-import com.example.demo.controller.dto.HistoriesRes;
+import com.example.demo.controller.dto.*;
 import com.example.demo.service.HistoryService;
+import com.example.demo.service.WeekService;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import org.apache.coyote.Response;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
+
+import static java.time.format.DateTimeFormatter.ISO_DATE;
 
 @RestController
 @RequestMapping("/api/v1/history")
@@ -19,6 +22,7 @@ import java.util.List;
 public class HistoryController {
 
     private final HistoryService historyService;
+    private final WeekService weekService;
 
     @ResponseBody
     @GetMapping("/historyList")
@@ -29,11 +33,11 @@ public class HistoryController {
     }
 
     @ResponseBody
-    @GetMapping("/crawlingReq")
-    @Operation(summary = "크롤링 요청 API")
-    public ResponseTemplate<List<CrawlingReq>> getCrawlingReq() throws ResponseException {
+    @GetMapping("/crawlingBaekjoonReq")
+    @Operation(summary = "백준 크롤링 요청 API")
+    public ResponseTemplate<List<CrawlingReq>> getBaekjoonCrawlingReq() throws ResponseException {
         try {
-            List<CrawlingReq> crawlingReqList = historyService.getInfoForHistoryCrawling();
+            List<CrawlingReq> crawlingReqList = historyService.getBaekjoonInfoForHistoryCrawling();
             return new ResponseTemplate<>(crawlingReqList);
         } catch (ResponseException e){
             return new ResponseTemplate<>(e.getStatus());
@@ -41,15 +45,42 @@ public class HistoryController {
     }
 
     @ResponseBody
-    @PostMapping("/crawlingRes")
-    @Operation(summary = "크롤링 요청 API")
-    public ResponseTemplate<String> getCrawlingRes(@RequestBody List<CrawlingRes> crawlingResList){
+    @PostMapping("/crawlingBaekjoonRes")
+    @Operation(summary = "백준 크롤링 요청 API")
+    public ResponseTemplate<String> getBaekjoonCrawlingRes(@RequestBody List<CrawlingRes> crawlingResList){
         try {
-            historyService.getHistoryCrawlingResult(crawlingResList);
+            historyService.getBaekjoonCrawlingResult(crawlingResList);
             return new ResponseTemplate<>("success");
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
+
+    @ResponseBody
+    @PostMapping("/crawlingTistoryReq")
+    @Operation(summary = "티스토리 크롤링 요청 API")
+    public ResponseTemplate<Long> getTistoryCrawlingReq(@RequestBody CrawlingTistoryReq crawlingTistoryReq) throws ResponseException {
+        try {
+            LocalDate nowDate = LocalDate.parse(crawlingTistoryReq.getDate(), ISO_DATE);
+
+            Long weekId = weekService.getWeekIdByStartDateAndStudyId(nowDate, crawlingTistoryReq.getStudyId());
+            return new ResponseTemplate<>(weekId);
+        } catch (ResponseException e){
+            return new ResponseTemplate<>(e.getStatus());
+        }
+    }
+
+    @ResponseBody
+    @PostMapping("/crawlingTistoryRes")
+    @Operation(summary = "티스토리 크롤링 요청 API")
+    public ResponseTemplate<String> getTistoryCrawlingRes(@RequestBody List<CrawlingTistoryRes> crawlingResList){
+        try {
+            historyService.getTistoryCrawlingResult(crawlingResList);
+            return new ResponseTemplate<>("success");
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 
 }
