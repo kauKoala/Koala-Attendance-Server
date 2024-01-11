@@ -2,7 +2,7 @@
 
 # IntelliJ IDEA
 .idea/
-*application.properties
+*application-local.yml
 out/*
 build/
 .gradle/

@@ -12,7 +12,7 @@
         alert(message);
     }
 
-    var semesterList = "${semesterList}"
+    var selectedSemester = "${selectedSemester}";
     console.log(semesterList)
 
     var studyList = "${studyList}"
@@ -44,7 +44,7 @@
             <select id="semesterName" class="form-select form-select-lg" style="margin-right: 2px" onclick="changeSemester(this)">
                 <c:choose>
                     <c:when test="${not empty selectedSemester}">
-                        <option value="${selectedSemester.id}">${selectedSemester}</option>
+                        <option value="${selectedSemester.id}">${selectedSemester.year} ${selectedSemester.semesterType}</option>
                     </c:when>
                     <c:otherwise>
                         <c:forEach var="semesterName" items="${semesterList}">
@@ -53,7 +53,7 @@
                     </c:otherwise>
                 </c:choose>
             </select>
-            <select id = "studyName" name="studyId" class="form-select form-select-lg" style="margin-right: 2px">
+            <select id="studyName" name="studyId" class="form-select form-select-lg" style="margin-right: 2px">
                 <c:forEach var="studyName" items="${studyList}">
                     <option value="${studyName.id}">${studyName.name}</option>
                 </c:forEach>

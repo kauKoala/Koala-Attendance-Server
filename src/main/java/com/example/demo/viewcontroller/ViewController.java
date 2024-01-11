@@ -38,15 +38,27 @@ public class ViewController {
 
     @RequestMapping("/list")
     public String list(Model model) {
-        List<SemesterRes> semesterList= semesterService.getAllSemester();
+        try{
+            List<SemesterRes> semesterList= semesterService.getAllSemester();
+            model.addAttribute("semesterList", semesterList);
+        } catch(Exception e){
+            model.addAttribute("message", e.getMessage());
+            return "customerror";
+        }
 
-        model.addAttribute("semesterList", semesterList);
         return "list";
     }
 
     @RequestMapping("/studylist")
-    public String studylist(@RequestParam("semesterId") Long semesterId, Model model) throws ResponseException {
+    public String studylist(@RequestParam(value="semesterId", required=false) Long semesterId, Model model) throws ResponseException {
         String semesterName = null;
+        if (semesterId == null) {
+            model.addAttribute("message", "순차적으로 학기와 스터디를 선택해주세요.");
+            List<SemesterRes> semesterList= semesterService.getAllSemester();
+            model.addAttribute("semesterList", semesterList);
+
+            return "list";
+        }
         try {
             List<StudyRes> studyList = studyService.getStudyList(semesterId);
             model.addAttribute("studyList", studyList);
@@ -63,12 +75,22 @@ public class ViewController {
     @RequestMapping("/history")
     public String historylist(@RequestParam(value = "studyId", required = false) Long studyId,
                               Model model) {
+        if (studyId == null) {
+            model.addAttribute("message", "순차적으로 학기와 스터디를 선택해주세요.");
+            List<SemesterRes> semesterList= semesterService.getAllSemester();
+            model.addAttribute("semesterList", semesterList);
+            return "list";
+        }
         try {
             //히스토리를 찾는다
-            List<HistoriesRes> historyResList = historyService.getHistoryList(studyId); //일단 하드코딩
+            List<HistoriesRes> historyResList = historyService.getHistoryList(studyId);
             model.addAttribute("historyResList",historyResList);
+            List<SemesterRes> semesterList= semesterService.getAllSemester();
+            model.addAttribute("semesterList", semesterList);
+
         } catch(ResponseException e) {
             model.addAttribute("message", e.getMessage());
+            return "customerror";
         }
         return "list";
     }
