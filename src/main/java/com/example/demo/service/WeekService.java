@@ -41,7 +41,7 @@ public class WeekService {
                 weekRepository.save(newWeek);
                 weekList2.add(newWeek);
             } else {
-                throw new ResponseException(DUPLICATE_WEEK);
+                weekList2.add(week.get());
             }
         }
         return weekList2;
