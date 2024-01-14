@@ -17,5 +17,4 @@ public class CrawlingTistoryRes {
 
     private Long studyId;
 
-    private Date date; //구분자
 }
