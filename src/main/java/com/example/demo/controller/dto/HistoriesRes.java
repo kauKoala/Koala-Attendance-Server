@@ -15,7 +15,7 @@ public class HistoriesRes {
 
     private int weekId;
 
-    private boolean isSolved;
+    private int solved;
 
-    private boolean isWritten;
+    private int written;
 }

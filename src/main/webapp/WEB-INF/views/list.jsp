@@ -13,7 +13,7 @@
     }
 
     var selectedSemester = "${selectedSemester}";
-    console.log(semesterList)
+    console.log(selectedSemester)
 
     var studyList = "${studyList}"
     console.log('study:',studyList)
@@ -79,18 +79,18 @@
             for (HistoriesRes history : historyResList) {
                 String studentName = history.getStudentName();
                 int weekId = history.getWeekId();
-                boolean isSolved = history.isSolved();
-                boolean isWritten = history.isWritten();
+                int solved = history.getSolved();
+                int written = history.getWritten();
 
                 if (!studentMap_baekjoon.containsKey(studentName)) {
                     studentMap_baekjoon.put(studentName, new HashMap<>());
                 }
-                studentMap_baekjoon.get(studentName).put(weekId, isSolved ? "○" : "✗");
+                studentMap_baekjoon.get(studentName).put(weekId, String.valueOf(solved));
 
                 if (!studentMap_tistory.containsKey(studentName)) {
                     studentMap_tistory.put(studentName, new HashMap<>());
                 }
-                studentMap_tistory.get(studentName).put(weekId, isWritten ? "○" : "✗");
+                studentMap_tistory.get(studentName).put(weekId, written > 0  ? "○" : "✗");
             }
         }
     %>
@@ -109,7 +109,7 @@
         <tr>
             <td><%= entry.getKey() %></td>
             <% for (int week = 1; week <= max_week; week++) { %>
-            <td><%= entry.getValue().getOrDefault(week, "-") %></td>
+            <td><%= entry.getValue().getOrDefault(week-1, "-") %></td>
             <% } %>
         </tr>
         <% } %>
@@ -131,7 +131,7 @@
         <tr>
             <td><%= entry.getKey() %></td>
             <% for (int week = 1; week <= max_week; week++) { %>
-            <td><%= entry.getValue().getOrDefault(week, "-") %></td>
+            <td><%= entry.getValue().getOrDefault(week-1, "-") %></td>
             <% } %>
         </tr>
         <% } %>

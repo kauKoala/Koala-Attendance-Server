@@ -74,13 +74,14 @@ public class HistoryService {
                 Study study = studyService.getStudyById(crawlingTistoryRes.getStudyId());
 
                 //history를 먼저 찾고 없으면 생성하고, 있으면 해당 history의 tistory 갯수 업데이트
-                Optional<History> history = historyRepository.findAllByStudyIdAndWeekIdAndStudentId(study.getId(), week.getId(), student.getId());
+                Optional<History> history = historyRepository.findFirstByStudyIdAndWeekIdAndStudentId(study.getId(), week.getId(), student.getId());
                 if (history.isEmpty()){
                     History newHistory = new History(student, study, week);
                     newHistory.addTistoryWeek(1);
                     historyRepository.save(newHistory);
                 } else {
                     history.get().addTistoryWeek(1);
+                    historyRepository.save(history.get());
                 }
             }
         } catch (Exception e){
@@ -101,35 +102,17 @@ public class HistoryService {
         for (StudentRes studentRes : studentResList) {
             List<Week> weekList = weekService.getWeekListByStudyId(studyId);
             for (int weekNum = 0; weekNum < weekList.size(); weekNum++) {
-                Optional<History> history = historyRepository.findAllByStudyIdAndWeekIdAndStudentId(studyId, weekList.get(weekNum).getId(), studentRes.getId());
+                Optional<History> history = historyRepository.findFirstByStudyIdAndWeekIdAndStudentId(studyId, weekList.get(weekNum).getId(), studentRes.getId());
                 if (history.isPresent()) {
-                    boolean isSolved = checkProblemsSolvedThisWeek(history.get()); //이후 수정 필요
-                    boolean isWritten = checkTistoryWrittenThisWeek(history.get());
-                    HistoriesRes historyListRes = new HistoriesRes(studentRes.getName(), weekNum+1, isSolved, isWritten);
+                    System.out.println("여기!!!!"+history.get().getId()+' '+history.get().getWrittenTistoryWeek()+' '+ history.get().getSolvedBaekjoonWeek());
+                    //아래 이후 수정 필요
+                    HistoriesRes historyListRes = new HistoriesRes(studentRes.getName(), weekNum, history.get().getSolvedBaekjoonWeek(), history.get().getWrittenTistoryWeek());
+
                     historyResList.add(historyListRes);
                 }
             }
         }
         return historyResList;
-    }
-
-    public boolean checkProblemsSolvedThisWeek (History history){
-
-        int solvedProblemsThisWeek = history.getSolvedBaekjoonWeek();
-        if (solvedProblemsThisWeek > 3) {
-            return true;
-        }
-        return false;
-    }
-
-
-    public boolean checkTistoryWrittenThisWeek (History history){
-        int writtenTistoryThisWeek = history.getWrittenTistoryWeek();
-
-        if (writtenTistoryThisWeek > 0) {
-            return true;
-        }
-        return false;
     }
 }
 
