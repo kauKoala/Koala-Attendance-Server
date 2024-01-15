@@ -13,22 +13,22 @@
 - 여름방학 - 6.20 ~ 9.1
 - 2학기 - 9.1 ~ 12.20
 - 겨울학기 - 12.20 ~ 2.28)
-<img src="img_2.png" alt="이미지 대체 텍스트" width="800"/>
+<img src="images/img_2.png" alt="이미지 대체 텍스트" width="800"/>
 
 2. 등록 page   
 학생 및 스터디를 등록할 수 있습니다.   
 학생의 백준 및 티스토리 이름은 각 플랫폼에서 가입 시 기입했던 이름을 기입해줍니다. (예. 전영서 / 20wjsdudtj / jeonyoungseo)
-<img src="img_5.png" alt="이미지 대체 텍스트" width="800"/>
+<img src="images/img_5.png" alt="이미지 대체 텍스트" width="800"/>
 3. 참가 page   
 학생들을 스터디에 추가/삭제 할 수 있습니다.   
 학생은 여러 명 선택 가능하며, 스터디는 한 개만 선택 가능합니다.   
-<img src="img_6.png" alt="이미지 대체 텍스트" width="800"/>
+<img src="images/img_6.png" alt="이미지 대체 텍스트" width="800"/>
 4. 출석부 조회 page   
 년도와 학기를 순차적으로 선택한 후 학생 별 주차별 출석 내역을 볼 수 있습니다.   
 각각 백준 / 티스토리 출석부를 의미하며 백준은 푼 갯수가, 티스토리는 포스팅 유무가 기입됩니다.      
 '-' 로 표기된 내용은 아직 해당 history가 업데이트되지 않았음을 의미합니다.
-<img src="img_3.png" alt="이미지 대체 텍스트" width="800"/>
-<img src="img_4.png" alt="이미지 대체 텍스트" width="800"/>
+<img src="images/img_3.png" alt="이미지 대체 텍스트" width="800"/>
+<img src="images/img_4.png" alt="이미지 대체 텍스트" width="800"/>
 
 ## 3. build & execute
 1. build   
@@ -59,11 +59,11 @@ git clone 이후 사용자 개인이 쉽게 구현 가능합니다.
 
 ## 4. 아키텍처
 1. ERD   
-<img src="img_7.png" alt="이미지 대체 텍스트" width="600"/>
+<img src="images/img_7.png" alt="이미지 대체 텍스트" width="600"/>
 2. 사용 기술      
-<img src="img_10.png" alt="이미지 대체 텍스트" width="360"/>
+<img src="images/img_10.png" alt="이미지 대체 텍스트" width="360"/>
 3. 배포 pipeline   
-<img src="img_9.png" alt="이미지 대체 텍스트" width="500"/>
+<img src="images/img_9.png" alt="이미지 대체 텍스트" width="500"/>
 
 ## 5. configuration
 해당 출석부 관리를 위한 계정 및 DB 관련 정보는 20wjsdudtj@gmail.com으로 연락주시기 바랍니다.
