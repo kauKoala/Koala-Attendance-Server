@@ -105,11 +105,13 @@ public class HistoryService {
                         //일단 개수로 판별하여 집어넣는다.
                         Optional<BaekjoonHistory> beforeBaekjoonHistory = baekjoonHistoryRepository.findById(beforeHistory.getId());
                         Optional<BaekjoonHistory> nowBaekjoonHistory = baekjoonHistoryRepository.findById(history.getId());
-                        int beforeBaekjoonNum = beforeBaekjoonHistory.get().getSolvedBaekjoon().size();
-                        int nowBaekjoonNum = nowBaekjoonHistory.get().getSolvedBaekjoon().size();
-                        history.setSolvedBaekjoonWeek(nowBaekjoonNum-beforeBaekjoonNum);
-                        historyRepository.save(history);
+                        if (beforeBaekjoonHistory.isPresent()) {
+                            int beforeBaekjoonNum = beforeBaekjoonHistory.get().getSolvedBaekjoon().size();
+                            int nowBaekjoonNum = nowBaekjoonHistory.get().getSolvedBaekjoon().size();
+                            history.setSolvedBaekjoonWeek(nowBaekjoonNum-beforeBaekjoonNum);
+                        }
                     }
+                    historyRepository.save(history);
                     HistoriesRes historyListRes = new HistoriesRes(studentRes.getName(), weekNum, history.getSolvedBaekjoonWeek(), history.getWrittenTistoryWeek());
                     historyResList.add(historyListRes);
                 }
