@@ -4,10 +4,7 @@ import com.example.demo.config.resTemplate.ResponseException;
 import com.example.demo.controller.dto.*;
 import com.example.demo.domain.Semester;
 import com.example.demo.domain.SemesterType;
-import com.example.demo.service.HistoryService;
-import com.example.demo.service.SemesterService;
-import com.example.demo.service.StudentService;
-import com.example.demo.service.StudyService;
+import com.example.demo.service.*;
 import org.apache.coyote.Response;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,12 +25,14 @@ public class ViewController {
     private final StudentService studentService;
     private final StudyService studyService;
     private final HistoryService historyService;
+    private final WeekService weekService;
 
-    public ViewController(SemesterService semesterService, StudentService studentService, StudyService studyService, HistoryService historyService){
+    public ViewController(SemesterService semesterService, StudentService studentService, StudyService studyService, HistoryService historyService, WeekService weekService){
         this.semesterService = semesterService;
         this.studentService = studentService;
         this.studyService =  studyService;
         this.historyService = historyService;
+        this.weekService = weekService;
     }
 
     @RequestMapping("/list")
@@ -83,6 +82,9 @@ public class ViewController {
         }
         try {
             //히스토리를 찾는다
+            int max_week = weekService.getWeekCountByStudyId(studyId);
+            model.addAttribute("max_week", max_week);
+
             List<HistoriesRes> historyResList = historyService.getHistoryList(studyId);
             model.addAttribute("historyResList",historyResList);
             System.out.println(historyResList);

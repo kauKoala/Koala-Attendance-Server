@@ -98,21 +98,21 @@ public class HistoryService {
 
         for (StudentRes studentRes : studentResList) {
             for (int weekNum = 0; weekNum < weekList.size(); weekNum++) {
-                History history = getHistory(studyId, weekList.get(weekNum).getId(), studentRes.getId());
-                if (history != null) {
+                Optional<History> history = getHistory(studyId, weekList.get(weekNum).getId(), studentRes.getId());
+                if (history.isPresent()) {
                     if (weekNum>0){
-                        History beforeHistory = getHistory(studyId, weekList.get(weekNum-1).getId(), studentRes.getId());
+                        Optional<History> beforeHistory = getHistory(studyId, weekList.get(weekNum-1).getId(), studentRes.getId());
                         //일단 개수로 판별하여 집어넣는다.
-                        Optional<BaekjoonHistory> beforeBaekjoonHistory = baekjoonHistoryRepository.findById(beforeHistory.getId());
-                        Optional<BaekjoonHistory> nowBaekjoonHistory = baekjoonHistoryRepository.findById(history.getId());
-                        if (beforeBaekjoonHistory.isPresent()) {
+                        if (beforeHistory.isPresent()) {
+                            Optional<BaekjoonHistory> beforeBaekjoonHistory = baekjoonHistoryRepository.findById(beforeHistory.get().getId());
+                            Optional<BaekjoonHistory> nowBaekjoonHistory = baekjoonHistoryRepository.findById(history.get().getId());
                             int beforeBaekjoonNum = beforeBaekjoonHistory.get().getSolvedBaekjoon().size();
                             int nowBaekjoonNum = nowBaekjoonHistory.get().getSolvedBaekjoon().size();
-                            history.setSolvedBaekjoonWeek(nowBaekjoonNum-beforeBaekjoonNum);
+                            history.get().setSolvedBaekjoonWeek(nowBaekjoonNum-beforeBaekjoonNum);
                         }
                     }
-                    historyRepository.save(history);
-                    HistoriesRes historyListRes = new HistoriesRes(studentRes.getName(), weekNum, history.getSolvedBaekjoonWeek(), history.getWrittenTistoryWeek());
+                    historyRepository.save(history.get());
+                    HistoriesRes historyListRes = new HistoriesRes(studentRes.getName(), weekList.get(weekNum).getWeekNumber(), history.get().getSolvedBaekjoonWeek(), history.get().getWrittenTistoryWeek());
                     historyResList.add(historyListRes);
                 }
             }
@@ -120,9 +120,8 @@ public class HistoryService {
         return historyResList;
     }
 
-    private History getHistory(Long studyId, Long weekId, Long studentId) {
-        return historyRepository.findFirstByStudyIdAndWeekIdAndStudentId(studyId, weekId, studentId)
-                .orElse(null);
+    private Optional<History> getHistory(Long studyId, Long weekId, Long studentId) {
+        return historyRepository.findFirstByStudyIdAndWeekIdAndStudentId(studyId, weekId, studentId);
     }
 }
 

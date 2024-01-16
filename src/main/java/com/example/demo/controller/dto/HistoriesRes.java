@@ -13,7 +13,7 @@ public class HistoriesRes {
 
     private String studentName;
 
-    private int weekId;
+    private int weekNum;
 
     private int solved;
 

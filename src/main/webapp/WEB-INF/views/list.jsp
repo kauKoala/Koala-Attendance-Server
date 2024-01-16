@@ -65,20 +65,16 @@
     </div>
 
     <%
+        int max_week = 0;
         List<HistoriesRes> historyResList = (List<HistoriesRes>) request.getAttribute("historyResList");
 
         Map<String, Map<Integer, String>> studentMap_baekjoon = new HashMap<>(); // 이름:[주차, OX] // 백준
         Map<String, Map<Integer, String>> studentMap_tistory = new HashMap<>(); // 이름:[주차, OX] // 티스토리
 
-        int max_week = 0;
-
-        if (historyResList != null && !historyResList.isEmpty()) {
-            max_week = historyResList.size();
-        }
         if (historyResList != null && !historyResList.isEmpty()) {
             for (HistoriesRes history : historyResList) {
                 String studentName = history.getStudentName();
-                int weekId = history.getWeekId();
+                int weekId = history.getWeekNum();
                 int solved = history.getSolved();
                 int written = history.getWritten();
 
@@ -99,16 +95,16 @@
         <thead>
         <tr>
             <th>학생</th>
-            <% for (int week = 1; week <= max_week; week++) { %>
-            <th><%= week %>주차</th>
-            <% } %>
+            <c:forEach var="week" begin="1" end="${max_week}">
+                <th>${week}주차</th>
+            </c:forEach>
         </tr>
         </thead>
         <tbody>
         <% for (Map.Entry<String, Map<Integer, String>> entry : studentMap_baekjoon.entrySet()) { %>
         <tr>
             <td><%= entry.getKey() %></td>
-            <% for (int week = 1; week <= max_week; week++) { %>
+            <% for (int week = 1; week <= (int)request.getAttribute("max_week"); week++) { %>
             <td><%= entry.getValue().getOrDefault(week-1, "-") %></td>
             <% } %>
         </tr>
@@ -120,9 +116,9 @@
         <thead>
         <tr>
             <th>학생</th>
-            <% for (int week = 1; week <= max_week; week++) { %>
-            <th><%= week %>주차</th>
-            <% } %>
+            <c:forEach var="week" begin="1" end="${max_week}">
+                <th>${week}주차</th>
+            </c:forEach>
         </tr>
         </thead>
 
@@ -130,7 +126,7 @@
         <% for (Map.Entry<String, Map<Integer, String>> entry : studentMap_tistory.entrySet()) { %>
         <tr>
             <td><%= entry.getKey() %></td>
-            <% for (int week = 1; week <= max_week; week++) { %>
+            <% for (int week = 1; week <= (int)request.getAttribute("max_week"); week++) { %>
             <td><%= entry.getValue().getOrDefault(week-1, "-") %></td>
             <% } %>
         </tr>

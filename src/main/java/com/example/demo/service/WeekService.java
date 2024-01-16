@@ -58,4 +58,8 @@ public class WeekService {
     public List<Week> getWeekListByStudyId(Long studyId) {
         return studyRepository.findWeekByStudyId(studyId);
     }
+
+    public int getWeekCountByStudyId(Long studyId){
+        return studyRepository.findWeekByStudyId(studyId).size();
+    }
 }
