@@ -6,11 +6,8 @@ import com.example.demo.domain.Semester;
 import com.example.demo.domain.SemesterType;
 import com.example.demo.domain.Study;
 import com.example.demo.repository.SemesterRepository;
-import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import javax.swing.text.html.Option;
+import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -61,6 +58,7 @@ public class SemesterService {
         }
     }
 
+    @Transactional
     public Long addStudy(Study study) {
         Semester semester = getCurrentSemester();
         semester.addStudy(study);

@@ -10,6 +10,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -26,7 +27,7 @@ public class WeekService {
     @Autowired
     private final WeekRepository weekRepository;
     private final StudyRepository studyRepository;
-
+    @Transactional
     @Operation(summary = "Week 생성 API", description = "학기 별 Week 를 생성합니다.")
     public List<Week> createWeekList(List<String> stringDateList) throws ResponseException{
         List<LocalDate> weekList = stringDateList.stream()

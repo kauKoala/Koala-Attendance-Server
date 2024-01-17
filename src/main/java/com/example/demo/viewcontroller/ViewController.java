@@ -87,7 +87,7 @@ public class ViewController {
 
             List<HistoriesRes> historyResList = historyService.getHistoryList(studyId);
             model.addAttribute("historyResList",historyResList);
-            System.out.println(historyResList);
+            System.out.println("viewcontrollerHistoryResList"+historyResList);
             List<SemesterRes> semesterList= semesterService.getAllSemester();
             model.addAttribute("semesterList", semesterList);
 

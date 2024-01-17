@@ -94,7 +94,7 @@
     <table id="attendList_list_baekjoon" class="table table-bordered">
         <thead>
         <tr>
-            <th>학생</th>
+            <th>백준</th>
             <c:forEach var="week" begin="1" end="${max_week}">
                 <th>${week}주차</th>
             </c:forEach>
@@ -115,7 +115,7 @@
     <table id="attendList_list_tistory" class="table table-bordered">
         <thead>
         <tr>
-            <th>학생</th>
+            <th>티스토리</th>
             <c:forEach var="week" begin="1" end="${max_week}">
                 <th>${week}주차</th>
             </c:forEach>
@@ -133,5 +133,12 @@
         <% } %>
         </tbody>
     </table>
+
+    <div>
+        2024 1~3월 겨울방학 학기 기준<br/>
+        - 2주차 티스토리 작성 현황은 1월 9일~16일 데이터가 반영되었습니다.<br/>
+        - 3주차 백준 및 티스토리 현황은 1월 16일 ~ 1월 23일 데이터가 반영되었습니다.
+    </div>
 </div>
+
 </div>

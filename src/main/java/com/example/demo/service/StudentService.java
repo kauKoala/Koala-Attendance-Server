@@ -13,6 +13,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,6 +31,7 @@ public class StudentService {
     private final StudentStudyRepository studentStudyRepository;
     private final StudyRepository studyRepository;
 
+    @Transactional
     public String createStudent(StudentReq studentReq) throws ResponseException {
 
         Optional<Student> student = studentRepository.findByBaekjoonName(studentReq.getBaekjoonName());
@@ -54,7 +56,7 @@ public class StudentService {
         }
         return studentResList;
     }
-
+    @Transactional
     public void removeStudyFromStudyList(List<Long> studentIdList, Long studyId) throws ResponseException {
         for (Long studentId : studentIdList) {
             Optional<Student> optionalStudent = studentRepository.findById(studentId);
@@ -74,7 +76,7 @@ public class StudentService {
             }
         }
     }
-
+    @Transactional
     public void addStudyToStudyList(List<Long> studentIdList, Long studyId) throws ResponseException {
         for (Long studentId : studentIdList) {
             List<Student_Study> studentStudies = studentStudyRepository.findStudentStudiesByStudentId(studentId);
@@ -97,7 +99,6 @@ public class StudentService {
             }
         }
     }
-
 
 
     public List<StudentRes> getStudentListByStudyId(Long studyId) throws ResponseException{
