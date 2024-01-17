@@ -31,7 +31,7 @@ public class StudyService {
     private final SemesterService semesterService;
     private final WeekService weekService;
 
-    @Transactional
+    @Transactional(rollbackFor={ResponseException.class})
     public String createStudy(StudyReq studyReq) throws ResponseException {
 
         Optional<Study> study = studyRepository.findByName(studyReq.getName());
