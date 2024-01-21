@@ -17,7 +17,6 @@ import java.util.ArrayList;
 import java.util.Optional;
 
 @Service
-@Transactional(readOnly = true)
 @RequiredArgsConstructor
 public class HistoryService {
 
