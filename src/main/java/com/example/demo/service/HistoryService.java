@@ -54,8 +54,8 @@ public class HistoryService {
                 Student student = studentService.getStudentById(crawlingRes.getStudentId());
                 Study study = studyService.getStudyById(crawlingRes.getStudyId());
                 Week week = weekService.getWeekById(crawlingRes.getWeekId());
-
-                History history = new History(student, study, week);
+                History history = historyRepository.findFirstByStudyIdAndWeekIdAndStudentId(study.getId(), week.getId(), student.getId())
+                        .orElse(new History(student, study, week));
                 historyRepository.save(history);
                 BaekjoonHistory baekjoonHistory = new BaekjoonHistory(history.getId(), crawlingRes.getSolvedBaekjoon());
                 baekjoonHistoryRepository.save(baekjoonHistory);
