@@ -63,7 +63,11 @@
             <input type="submit" value="선택" class="btn btn-outline-primary btn-sm" />
         </form>
     </div>
-
+    <div>
+        <strong>&lt;2024 1~3월 겨울방학 학기 기준&gt;</strong><br/>
+        - 2주차 티스토리 작성 현황은 1월 9일~16일 데이터가 반영되었습니다.<br/>
+        - 3주차 백준 및 티스토리 현황은 1월 16일 ~ 1월 22일 오전 10시 데이터가 반영되었습니다.<br/>
+    </div>
     <%
         int max_week = 0;
         List<HistoriesRes> historyResList = (List<HistoriesRes>) request.getAttribute("historyResList");
@@ -133,12 +137,16 @@
         <% } %>
         </tbody>
     </table>
-
     <div>
-        2024 1~3월 겨울방학 학기 기준<br/>
-        - 2주차 티스토리 작성 현황은 1월 9일~16일 데이터가 반영되었습니다.<br/>
-        - 3주차 백준 및 티스토리 현황은 1월 16일 ~ 1월 22일 오전 10시 데이터가 반영되었습니다.
+        <strong>&lt;백준 크롤링 데이터&gt;</strong><br/>
+        백준 데이터의 경우 지난 주 대비 이번주에 '새롭게 푼' 문제의 수가 갱신됩니다.<br/>
+        이전에 맞췄으나 다시 푼 문제의 경우 적용되지 않습니다.<br/>
     </div>
+    <div>
+        <strong>&lt;티스토리 데이터&gt;</strong><br/>
+        티스토리 데이터의 경우 이번주에 게시글을 한 개라도 올렸다면 O로 체크됩니다.
+    </div>
+
 </div>
 
 </div>
