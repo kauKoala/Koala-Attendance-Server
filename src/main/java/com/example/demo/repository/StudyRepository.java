@@ -17,7 +17,7 @@ public interface StudyRepository extends JpaRepository<Study, Long> {
     @Query("SELECT COUNT(s) FROM Study s JOIN s.weeks w WHERE s.id = :studyId")
     int countWeeksByStudyId(@Param("studyId") Long studyId);
 
-    @Query("SELECT w FROM Study s JOIN s.weeks w WHERE s.id = :studyId")
-    List<Week> findWeekByStudyId(@Param("studyId") Long studyId);
+    @Query("SELECT w FROM Study s JOIN s.weeks w WHERE s.id = :studyId ORDER BY w.weekNumber ASC")
+    List<Week> findWeekByStudyIdOrderByWeekNumberAsc(@Param("studyId") Long studyId);
 
 }

@@ -16,6 +16,8 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Optional;
 
+import static java.lang.Math.max;
+
 @Service
 @RequiredArgsConstructor
 public class HistoryService {
@@ -103,6 +105,8 @@ public class HistoryService {
             for (int weekNum = 0; weekNum < weekList.size(); weekNum++) {
                 Optional<History> history = getHistory(studyId, weekList.get(weekNum).getId(), studentRes.getId());
                 if (history.isPresent()) {
+                    System.out.println(history.get().getWeek().getWeekNumber());
+
                     if (weekNum>0){
                         Optional<History> beforeHistory = getHistory(studyId, weekList.get(weekNum-1).getId(), studentRes.getId());
                         //일단 개수로 판별하여 집어넣는다.
@@ -119,7 +123,7 @@ public class HistoryService {
                         }
                     }
                     historyRepository.save(history.get());
-                    HistoriesRes historyListRes = new HistoriesRes(studentRes.getName(), weekList.get(weekNum).getWeekNumber(), history.get().getSolvedBaekjoonWeek(), history.get().getWrittenTistoryWeek());
+                    HistoriesRes historyListRes = new HistoriesRes(studentRes.getName(), weekList.get(weekNum).getWeekNumber(), max(0,history.get().getSolvedBaekjoonWeek()), history.get().getWrittenTistoryWeek());
                     historyResList.add(historyListRes);
                 }
             }
