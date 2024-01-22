@@ -110,7 +110,11 @@ public class HistoryService {
                             Optional<BaekjoonHistory> beforeBaekjoonHistory = baekjoonHistoryRepository.findById(beforeHistory.get().getId());
                             Optional<BaekjoonHistory> nowBaekjoonHistory = baekjoonHistoryRepository.findById(history.get().getId());
                             int beforeBaekjoonNum = beforeBaekjoonHistory.get().getSolvedBaekjoon().size();
+                            System.out.println("beforeBaekjoonNum"+beforeBaekjoonNum);
+                            System.out.println(beforeBaekjoonHistory.get().getId());
                             int nowBaekjoonNum = nowBaekjoonHistory.get().getSolvedBaekjoon().size();
+                            System.out.println("nowBaekjoonNum"+nowBaekjoonNum);
+                            System.out.println(nowBaekjoonHistory.get().getId());
                             history.get().setSolvedBaekjoonWeek(nowBaekjoonNum-beforeBaekjoonNum);
                         }
                     }
