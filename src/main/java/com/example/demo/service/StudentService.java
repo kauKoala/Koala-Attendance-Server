@@ -59,21 +59,26 @@ public class StudentService {
     @Transactional
     public void removeStudyFromStudyList(List<Long> studentIdList, Long studyId) throws ResponseException {
         for (Long studentId : studentIdList) {
-            Optional<Student> optionalStudent = studentRepository.findById(studentId);
-            if (optionalStudent.isPresent()) {
-                Student student = optionalStudent.get(); // 수정 필요
-                List<Student_Study> studentStudies = studentStudyRepository.findStudentStudiesByStudentId(student.getId());
-                boolean isStudyLinked = studentStudies.stream()
-                        .anyMatch(ss -> ss.getStudy().getId().equals(studyId)); //이 테이블 안에 그 studyId가 있는지 확인
+            Student student = studentRepository.findById(studentId)
+                    .orElseThrow(() -> new ResponseException(STUDENT_NOT_FOUND));
+            List<Student_Study> studentStudies = studentStudyRepository.findStudentStudiesByStudentId(student.getId());
+//            for (Iterator<Student_Study> iterator = studentStudies.iterator(); iterator.hasNext();) {
+//                Student_Study ss = iterator.next();
+//                if (ss.getStudy().getId().equals(studyId)) {
+//                    iterator.remove();
+//                    return;
+//                }
+//            } 본래 코드 -> Stream 이용해서 컬렉션(배열 포함)의 저장 요소를 반복자로 하나씩 참조해서 람다식으로 처리
 
-                if (isStudyLinked) {
-                    studentStudies.removeIf(ss -> ss.getStudy().getId().equals(studyId));
-                } else {
-                    throw new ResponseException(STUDY_NOT_FOUND_FOR_STUDENT);
-                }
+            boolean isStudyLinked = studentStudies.stream()
+                    .anyMatch(ss -> ss.getStudy().getId().equals(studyId)); //이 테이블 안에 그 studyId가 있는지 확인
+
+            if (isStudyLinked) {
+                studentStudies.removeIf(ss -> ss.getStudy().getId().equals(studyId));
             } else {
-                throw new ResponseException(STUDENT_NOT_FOUND);
+                throw new ResponseException(STUDY_NOT_FOUND_FOR_STUDENT);
             }
+
         }
     }
     @Transactional
@@ -92,7 +97,7 @@ public class StudentService {
                         .orElseThrow(() -> new ResponseException(STUDY_NOT_FOUND));
 
                 Student_Study newStudentStudy = new Student_Study();
-                newStudentStudy.setStudent(student);
+                newStudentStudy.setStudentㅎ(student);
                 newStudentStudy.setStudy(study);
 
                 studentStudyRepository.save(newStudentStudy);

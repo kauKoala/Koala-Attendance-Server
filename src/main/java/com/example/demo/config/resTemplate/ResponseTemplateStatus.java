@@ -29,7 +29,7 @@ public enum ResponseTemplateStatus {
 
     //7000: History Request
     HISTORY_NOT_FOUND(false, "해당 스터디에 히스토리가 존재하지 않습니다.", 7001),
-
+    BAEKJOON_HISTORY_NOT_FOUND(false, "백준 티스토리가 존재하지 않습니다.", 7002),
     //8000 StudentStudy Request
     STUDY_NOT_FOUND_FOR_STUDENT(false, "해당 학생은 해당 스터디에 참여하고 있지 않습니다.", 8001),
     DUPLICATE_STUDENT_STUDY(false, "해당 학생은 이미 해당 스터디에 참여하고 있습니다.", 8002);
