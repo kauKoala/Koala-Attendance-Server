@@ -97,7 +97,7 @@ public class StudentService {
                         .orElseThrow(() -> new ResponseException(STUDY_NOT_FOUND));
 
                 Student_Study newStudentStudy = new Student_Study();
-                newStudentStudy.setStudentㅎ(student);
+                newStudentStudy.setStudent(student);
                 newStudentStudy.setStudy(study);
 
                 studentStudyRepository.save(newStudentStudy);

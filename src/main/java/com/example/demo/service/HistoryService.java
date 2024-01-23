@@ -6,11 +6,9 @@ import com.example.demo.config.resTemplate.ResponseException;
 import com.example.demo.repository.BaekjoonHistoryRepository;
 import com.example.demo.repository.HistoryRepository;
 import com.example.demo.repository.StudentStudyRepository;
-import com.example.demo.repository.StudyRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.ArrayList;
@@ -26,7 +24,6 @@ public class HistoryService {
 
     @Autowired
     private final HistoryRepository historyRepository;
-    private final StudyRepository studyRepository;
     private final StudentService studentService;
     private final SemesterService semesterService;
     private final StudyService studyService;
