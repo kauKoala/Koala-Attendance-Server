@@ -109,6 +109,7 @@ public class ViewController {
                     studentService.addStudyToStudyList(studentIds, studyId);
                 }
             } else if (action.equals("delete")) {
+                System.out.println("아아아아ㅏ");
                 if (studentIds != null && studyId != null) {
                     studentService.removeStudyFromStudyList(studentIds, studyId);
                 }

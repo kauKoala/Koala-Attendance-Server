@@ -11,8 +11,6 @@ import lombok.NoArgsConstructor;
 import java.util.List;
 @Data
 @Getter
-@AllArgsConstructor
-@NoArgsConstructor
 public class CrawlingRes {
 
     private Long studyId;
@@ -21,6 +19,6 @@ public class CrawlingRes {
 
     private Long WeekId;
 
-    private List<Integer> solvedBaekjoon;
+    private final List<Integer> solvedBaekjoon;
 
 }
