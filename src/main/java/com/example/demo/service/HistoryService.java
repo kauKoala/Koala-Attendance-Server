@@ -108,15 +108,21 @@ public class HistoryService {
                     if (weekNum > 0) {
                         Optional<History> beforeHistory = getHistory(studyId, weekList.get(weekNum - 1).getId(), studentRes.getId());
                         //일단 개수로 판별하여 집어넣는다.
+                        int beforeBaekjoonNum = 0;
+                        int nowBaekjoonNum = 0;
                         if (beforeHistory.isPresent()) {
                             Optional<BaekjoonHistory> beforeBaekjoonHistory = baekjoonHistoryRepository.findById(beforeHistory.get().getId());
                             Optional<BaekjoonHistory> nowBaekjoonHistory = baekjoonHistoryRepository.findById(history.get().getId());
-                            int beforeBaekjoonNum = beforeBaekjoonHistory.get().getSolvedBaekjoon().size();
-                            System.out.println("beforeBaekjoonNum" + beforeBaekjoonNum);
-                            System.out.println(beforeBaekjoonHistory.get().getId());
-                            int nowBaekjoonNum = nowBaekjoonHistory.get().getSolvedBaekjoon().size();
-                            System.out.println("nowBaekjoonNum" + nowBaekjoonNum);
-                            System.out.println(nowBaekjoonHistory.get().getId());
+                            if (beforeBaekjoonHistory.isPresent()){
+                                beforeBaekjoonNum = beforeBaekjoonHistory.get().getSolvedBaekjoon().size();
+                                System.out.println("beforeBaekjoonNum" + beforeBaekjoonNum);
+                                System.out.println(beforeBaekjoonHistory.get().getId());
+                            }
+                            if (nowBaekjoonHistory.isPresent()){
+                                nowBaekjoonNum = nowBaekjoonHistory.get().getSolvedBaekjoon().size();
+                                System.out.println("nowBaekjoonNum" + nowBaekjoonNum);
+                                System.out.println(nowBaekjoonHistory.get().getId());
+                            }
                             history.get().setSolvedBaekjoonWeek(nowBaekjoonNum - beforeBaekjoonNum);
                         }
                     }

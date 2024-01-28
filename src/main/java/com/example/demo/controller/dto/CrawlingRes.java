@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 import java.util.List;
 @Data
 @Getter
+@AllArgsConstructor
 public class CrawlingRes {
 
     private Long studyId;
