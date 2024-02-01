@@ -97,43 +97,42 @@ public class HistoryService {
         List<HistoriesRes> historyResList = new ArrayList<>();
         List<StudentRes> studentResList = studentService.getStudentListByStudyId(studyId);
         List<Week> weekList = weekService.getWeekListByStudyId(studyId);
-        System.out.println("weekList"+weekList.toString());
+        System.out.println("weekList" + weekList.toString());
 
         for (StudentRes studentRes : studentResList) {
             for (int weekNum = 0; weekNum < weekList.size(); weekNum++) {
-                Optional<History> history = getHistory(studyId, weekList.get(weekNum).getId(), studentRes.getId());
-                if (history.isPresent()) {
-                    System.out.println(history.get().getWeek().getWeekNumber());
-
-                    if (weekNum > 0) {
-                        Optional<History> beforeHistory = getHistory(studyId, weekList.get(weekNum - 1).getId(), studentRes.getId());
-                        //일단 개수로 판별하여 집어넣는다.
-                        int beforeBaekjoonNum = 0;
-                        int nowBaekjoonNum = 0;
-                        if (beforeHistory.isPresent()) {
-                            Optional<BaekjoonHistory> beforeBaekjoonHistory = baekjoonHistoryRepository.findById(beforeHistory.get().getId());
-                            Optional<BaekjoonHistory> nowBaekjoonHistory = baekjoonHistoryRepository.findById(history.get().getId());
-                            if (beforeBaekjoonHistory.isPresent()){
-                                beforeBaekjoonNum = beforeBaekjoonHistory.get().getSolvedBaekjoon().size();
-                                System.out.println("beforeBaekjoonNum" + beforeBaekjoonNum);
-                                System.out.println(beforeBaekjoonHistory.get().getId());
-                            }
-                            if (nowBaekjoonHistory.isPresent()){
-                                nowBaekjoonNum = nowBaekjoonHistory.get().getSolvedBaekjoon().size();
-                                System.out.println("nowBaekjoonNum" + nowBaekjoonNum);
-                                System.out.println(nowBaekjoonHistory.get().getId());
-                            }
-                            history.get().setSolvedBaekjoonWeek(nowBaekjoonNum - beforeBaekjoonNum);
-                        }
-                    }
-                    historyRepository.save(history.get());
-                    HistoriesRes historyListRes = new HistoriesRes(studentRes.getName(), weekList.get(weekNum).getWeekNumber(), max(0, history.get().getSolvedBaekjoonWeek()), history.get().getWrittenTistoryWeek());
-                    historyResList.add(historyListRes);
-                }
+                int currentWeekNum = weekNum; // Lambda 표현식 내에서 사용되는 변수는 (사실상) final 이어야 함 -> 현재 for문에서 도는 weekNum
+                getHistory(studyId, weekList.get(weekNum).getId(), studentRes.getId())
+                    .ifPresent(history -> {
+                        int solvedBaekjoonWeekDiff = compareWithPreviousHistory(studyId, history, currentWeekNum, studentRes.getId(), weekList);
+                        history.setSolvedBaekjoonWeek(solvedBaekjoonWeekDiff);
+                        historyRepository.save(history);
+                        HistoriesRes historyListRes = new HistoriesRes(studentRes.getName(), weekList.get(currentWeekNum).getWeekNumber(),
+                                Math.max(0, solvedBaekjoonWeekDiff), history.getWrittenTistoryWeek());
+                        historyResList.add(historyListRes);
+                    });
             }
         }
         return historyResList;
     }
+
+    private int compareWithPreviousHistory(Long studyId, History history, int currentWeekNum, Long studentId, List<Week> weekList) {
+        if (currentWeekNum > 0) {
+            return getHistory(studyId, weekList.get(currentWeekNum - 1).getId(), studentId)
+                .map(beforeHistory -> {
+                    int beforeBaekjoonNum = baekjoonHistoryRepository.findById(beforeHistory.getId())
+                        .map(beforeBaekjoonHistory -> beforeBaekjoonHistory.getSolvedBaekjoon().size()) //beforeBaekjoonHistory 객체들에 대해
+                        .orElse(0);
+                    int nowBaekjoonNum = baekjoonHistoryRepository.findById(history.getId())
+                        .map(nowBaekjoonHistory -> nowBaekjoonHistory.getSolvedBaekjoon().size())
+                        .orElse(0);
+                    return nowBaekjoonNum - beforeBaekjoonNum;
+                })
+                .orElse(0);
+        }
+        return 0;
+    }
+
 
     private Optional<History> getHistory(Long studyId, Long weekId, Long studentId) {
         return historyRepository.findFirstByStudyIdAndWeekIdAndStudentId(studyId, weekId, studentId);
