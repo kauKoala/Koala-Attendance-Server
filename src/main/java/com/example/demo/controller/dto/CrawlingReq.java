@@ -3,9 +3,10 @@ package com.example.demo.controller.dto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Data @Getter
-@AllArgsConstructor
+@AllArgsConstructor @NoArgsConstructor
 public class CrawlingReq {
 
     private Long studyId;

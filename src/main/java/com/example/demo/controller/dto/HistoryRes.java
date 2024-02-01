@@ -4,13 +4,10 @@ import com.example.demo.domain.Student;
 import com.example.demo.domain.Study;
 import com.example.demo.domain.Week;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 @Data @Getter @Setter
-@AllArgsConstructor
+@AllArgsConstructor @NoArgsConstructor
 public class HistoryRes {
 
     private Student student;

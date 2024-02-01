@@ -1,16 +1,13 @@
 package com.example.demo.controller.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.List;
 
 @Getter @Setter
 @AllArgsConstructor
-@Data
+@Data @NoArgsConstructor
 public class StudyRes {
 
     @Schema(description="id")
