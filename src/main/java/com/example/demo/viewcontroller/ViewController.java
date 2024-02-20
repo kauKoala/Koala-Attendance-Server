@@ -2,23 +2,22 @@ package com.example.demo.viewcontroller;
 
 import com.example.demo.config.resTemplate.ResponseException;
 import com.example.demo.controller.dto.*;
-import com.example.demo.domain.Semester;
 import com.example.demo.domain.SemesterType;
 import com.example.demo.service.*;
-import org.apache.coyote.Response;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.List;
 
 @Controller
+@RequestMapping
 public class ViewController {
 
     private final SemesterService semesterService;
@@ -48,6 +47,16 @@ public class ViewController {
         return "list";
     }
 
+    @RequestMapping("/customlogin")
+    public String loginForm() {
+        return "customlogin";
+    }
+
+    @RequestMapping("/myprofile")
+    public String loginRequest(Authentication authentication) {
+
+        return "myprofile";
+    }
     @RequestMapping("/studylist")
     public String studylist(@RequestParam(value="semesterId", required=false) Long semesterId, Model model) throws ResponseException {
         String semesterName = null;

@@ -32,6 +32,10 @@ spring:
       prefix: /WEB-INF/views/
       suffix: .jsp
 
+  security:
+    user:
+      name: ${ADMIN_NAME}
+      password: ${ADMIN_PASSWORD}
 logging:
   level:
     org.hibernate.SQL: debug

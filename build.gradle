@@ -44,6 +44,9 @@ dependencies {
     //DB - postgresql & mongodb
     implementation 'org.springframework.boot:spring-boot-starter-data-mongodb'
     implementation 'org.postgresql:postgresql:42.6.0'
+
+    //spring security
+    implementation 'org.springframework.boot:spring-boot-starter-security'
 }
 
 tasks.named('test') {
