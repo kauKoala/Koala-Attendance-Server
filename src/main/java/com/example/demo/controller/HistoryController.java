@@ -34,7 +34,7 @@ public class HistoryController {
 
     @ResponseBody
     @GetMapping("/crawlingBaekjoonReq")
-    @Operation(summary = "백준 크롤링 요청 API")
+    @Operation(summary = "백준 크롤링을 위한 요청 API")
     public ResponseTemplate<List<CrawlingReq>> getBaekjoonCrawlingReq() throws ResponseException {
         try {
             List<CrawlingReq> crawlingReqList = historyService.getBaekjoonInfoForHistoryCrawling();
@@ -46,7 +46,7 @@ public class HistoryController {
 
     @ResponseBody
     @PostMapping("/crawlingBaekjoonRes")
-    @Operation(summary = "백준 크롤링 요청 API")
+    @Operation(summary = "백준 크롤링을 완료한 후 반환받는 API")
     public ResponseTemplate<String> getBaekjoonCrawlingRes(@RequestBody List<CrawlingRes> crawlingResList){
         try {
             historyService.getBaekjoonCrawlingResult(crawlingResList);
@@ -58,7 +58,7 @@ public class HistoryController {
 
     @ResponseBody
     @PostMapping("/crawlingTistoryReq")
-    @Operation(summary = "티스토리 크롤링 요청 API")
+    @Operation(summary = "티스토리 크롤링을 위한 요청 API")
     public ResponseTemplate<Long> getTistoryCrawlingReq(@RequestBody CrawlingTistoryReq crawlingTistoryReq) throws ResponseException {
         try {
             LocalDate nowDate = LocalDate.parse(crawlingTistoryReq.getDate(), ISO_DATE);
@@ -72,7 +72,7 @@ public class HistoryController {
 
     @ResponseBody
     @PostMapping("/crawlingTistoryRes")
-    @Operation(summary = "티스토리 크롤링 요청 API")
+    @Operation(summary = "티스토리 크롤링을 완료한 후 반환받는 API")
     public ResponseTemplate<String> getTistoryCrawlingRes(@RequestBody List<CrawlingTistoryRes> crawlingResList){
         try {
             historyService.getTistoryCrawlingResult(crawlingResList);
