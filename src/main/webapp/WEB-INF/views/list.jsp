@@ -109,7 +109,7 @@
         <tr>
             <td><%= entry.getKey() %></td>
             <% for (int week = 1; week <= (int)request.getAttribute("max_week"); week++) { %>
-            <td><%= entry.getValue().getOrDefault(week-1, "-") %></td>
+            <td><%= entry.getValue().getOrDefault(week, "-") %></td>
             <% } %>
         </tr>
         <% } %>
@@ -131,7 +131,7 @@
         <tr>
             <td><%= entry.getKey() %></td>
             <% for (int week = 1; week <= (int)request.getAttribute("max_week"); week++) { %>
-            <td><%= entry.getValue().getOrDefault(week-1, "-") %></td>
+            <td><%= entry.getValue().getOrDefault(week, "-") %></td>
             <% } %>
         </tr>
         <% } %>
