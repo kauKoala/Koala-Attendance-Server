@@ -47,8 +47,8 @@ public class SemesterService {
         int currentMonth = currentDate.getMonthValue();
         int currentDay = currentDate.getDayOfMonth();
 
-        if ((currentMonth == 3 && currentDay >= 1) || (currentMonth == 4 || currentMonth == 5) || (currentMonth == 6 && currentDay <= 20)) {
-            return SemesterType.FIRST_SEMESTER;  //3.1 ~ 6.20
+        if ((currentMonth == 3 && currentDay >= 6) || (currentMonth == 4 || currentMonth == 5) || (currentMonth == 6 && currentDay <= 20)) {
+            return SemesterType.FIRST_SEMESTER;  //3.6 ~ 6.20
         } else if ((currentMonth == 6 && currentDay >= 21) || (currentMonth == 7 || currentMonth == 8) || (currentMonth == 9 && currentDay <= 1)) {
             return SemesterType.SUMMER_VACATION;  //6.20 ~ 9.1
         } else if ((currentMonth == 9 && currentDay >= 2) || (currentMonth == 10 || currentMonth == 11) || (currentMonth == 12 && currentDay <= 20)) {
