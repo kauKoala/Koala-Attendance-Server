@@ -72,8 +72,10 @@ git clone 이후 사용자 개인이 쉽게 구현 가능합니다.
 ## 4. 아키텍처
 1. ERD   
 <img src="images/img_7.png" alt="이미지 대체 텍스트" width="600"/>
-2. 사용 기술      
-<img src="images/img_10.png" alt="이미지 대체 텍스트" width="360"/>
+
+2. 사용 기술       
+<img src="https://github.com/kauKoala/Koala-Attendance-Server/assets/81344634/22d9a117-6d6f-4914-9242-26fac621caee" alt="이미지 대체 텍스트" width="400"/>
+
 3. 배포 pipeline   
 <img src="images/img_9.png" alt="이미지 대체 텍스트" width="500"/>
 
