@@ -163,6 +163,7 @@ public class ViewController {
 
     @RequestMapping(value="/study-register")
     public String studyregister(@ModelAttribute StudyReq studyReq, Model model) {
+        System.out.println("VIEW"+studyReq);
         try {
             String name = studyService.createStudy(studyReq);
             model.addAttribute("message", name+" 스터디 등록 성공");

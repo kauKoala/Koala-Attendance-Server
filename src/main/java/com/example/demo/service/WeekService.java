@@ -30,6 +30,7 @@ public class WeekService {
     @Transactional
     @Operation(summary = "Week 생성 API", description = "학기 별 Week 를 생성합니다.")
     public List<Week> createWeekList(List<String> stringDateList) throws ResponseException{
+        System.out.println(stringDateList);
         List<LocalDate> weekList = stringDateList.stream()
                 .map(LocalDate::parse)
                 .collect(Collectors.toList());
