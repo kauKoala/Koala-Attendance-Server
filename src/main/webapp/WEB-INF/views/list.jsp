@@ -41,7 +41,7 @@
     <div class="d-flex justify-content-between">
         출 석 부 목 록
         <form action="/history" method="get" class="form-inline; d-flex justify-content-around" >
-            <select id="semesterName" class="form-select form-select-lg" style="margin-right: 2px" onclick="changeSemester(this)">
+            <select id="semesterName" class="form-select form-select-lg" style="margin-right: 2px" onchange="changeSemester(this)">
                 <c:choose>
                     <c:when test="${not empty selectedSemester}">
                         <option value="${selectedSemester.id}">${selectedSemester.year} ${selectedSemester.semesterType}</option>
@@ -63,11 +63,11 @@
             <input type="submit" value="선택" class="btn btn-outline-primary btn-sm" />
         </form>
     </div>
-    <div>
-        <strong>&lt;2024 1~3월 겨울방학 학기 기준&gt;</strong><br/>
-        - 2주차 티스토리 작성 현황은 1월 9일~16일 데이터가 반영되었습니다.<br/>
-        - 3주차 백준 및 티스토리 현황은 1월 16일 ~ 1월 22일 오전 10시 데이터가 반영되었습니다.<br/>
-    </div>
+<%--    <div>--%>
+<%--        <strong>&lt;2024 1~3월 겨울방학 학기 기준&gt;</strong><br/>--%>
+<%--        - 2주차 티스토리 작성 현황은 1월 9일~16일 데이터가 반영되었습니다.<br/>--%>
+<%--        - 3주차 백준 및 티스토리 현황은 1월 16일 ~ 1월 22일 오전 10시 데이터가 반영되었습니다.<br/>--%>
+<%--    </div>--%>
     <%
         int max_week = 0;
         List<HistoriesRes> historyResList = (List<HistoriesRes>) request.getAttribute("historyResList");
@@ -100,7 +100,7 @@
         <tr>
             <th>백준</th>
             <c:forEach var="week" begin="1" end="${max_week}">
-                <th>${week}주차</th>
+                <th>${week-1}주차</th>
             </c:forEach>
         </tr>
         </thead>
@@ -121,7 +121,7 @@
         <tr>
             <th>티스토리</th>
             <c:forEach var="week" begin="1" end="${max_week}">
-                <th>${week}주차</th>
+                <th>${week-1}주차</th>
             </c:forEach>
         </tr>
         </thead>
