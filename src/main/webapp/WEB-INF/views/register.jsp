@@ -47,7 +47,7 @@
 <div class="container p-4 my-4 border">
     <h4 >학생 등록</h4>
     <div class="w-50 m-auto">
-        <form action="/student-register"  method="post" onsubmit="return validateAndConfirm('studentForm')">
+        <form action="/student-register"  method="post">
             <div class="form-group">
                 <label>학생 이름</label>
                 <input type="text" name="name" class="form-control" required>

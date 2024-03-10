@@ -2,6 +2,7 @@ package com.example.demo.viewcontroller;
 
 import com.example.demo.config.resTemplate.ResponseException;
 import com.example.demo.controller.dto.*;
+import com.example.demo.domain.Semester;
 import com.example.demo.domain.SemesterType;
 import com.example.demo.service.*;
 import org.springframework.security.core.Authentication;
@@ -178,7 +179,8 @@ public class ViewController {
 
         try {
             ArrayList<StudentRes> studentResList = studentService.getStudentList();
-            List<StudyRes> studyResList = studyService.getStudyList(1L);
+            Semester semester = semesterService.getCurrentSemester();
+            List<StudyRes> studyResList = studyService.getStudyList(semester.getId());
             model.addAttribute("studentList", studentResList);
             model.addAttribute("studyList", studyResList);
             modelAndView.setViewName("attend");

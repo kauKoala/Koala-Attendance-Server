@@ -8,6 +8,7 @@ import com.example.demo.repository.HistoryRepository;
 import com.example.demo.repository.StudentStudyRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -104,16 +105,31 @@ public class HistoryService {
                 int currentWeekNum = weekNum; // Lambda 표현식 내에서 사용되는 변수는 (사실상) final 이어야 함 -> 현재 for문에서 도는 weekNum
                 getHistory(studyId, weekList.get(weekNum).getId(), studentRes.getId())
                     .ifPresent(history -> {
-                        int solvedBaekjoonWeekDiff = compareWithPreviousHistory(studyId, history, currentWeekNum, studentRes.getId(), weekList);
-                        history.setSolvedBaekjoonWeek(solvedBaekjoonWeekDiff);
-                        historyRepository.save(history);
-                        HistoriesRes historyListRes = new HistoriesRes(studentRes.getName(), weekList.get(currentWeekNum).getWeekNumber(),
-                                Math.max(0, solvedBaekjoonWeekDiff), history.getWrittenTistoryWeek());
-                        historyResList.add(historyListRes);
+                                HistoriesRes historyListRes = new HistoriesRes(studentRes.getName(), weekList.get(currentWeekNum).getWeekNumber(),
+                                        Math.max(0, history.getSolvedBaekjoonWeek()), history.getWrittenTistoryWeek());
+                                historyResList.add(historyListRes);
                     });
             }
         }
         return historyResList;
+    }
+
+    public void saveHistoryList(Long studyId) throws ResponseException {
+        List<StudentRes> studentResList = studentService.getStudentListByStudyId(studyId);
+        List<Week> weekList = weekService.getWeekListByStudyId(studyId);
+        System.out.println("weekList" + weekList.toString());
+
+        for (StudentRes studentRes : studentResList) {
+            for (int weekNum = 0; weekNum < weekList.size(); weekNum++) {
+                int currentWeekNum = weekNum; // Lambda 표현식 내에서 사용되는 변수는 (사실상) final 이어야 함 -> 현재 for문에서 도는 weekNum
+                getHistory(studyId, weekList.get(weekNum).getId(), studentRes.getId())
+                        .ifPresent(history -> {
+                            int solvedBaekjoonWeekDiff = compareWithPreviousHistory(studyId, history, currentWeekNum, studentRes.getId(), weekList);
+                            history.setSolvedBaekjoonWeek(solvedBaekjoonWeekDiff);
+                            historyRepository.save(history);
+                        });
+            }
+        }
     }
 
     private int compareWithPreviousHistory(Long studyId, History history, int currentWeekNum, Long studentId, List<Week> weekList) {

@@ -2,10 +2,11 @@ package com.example.demo.controller.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-@Getter
+@Getter @Data
 @AllArgsConstructor @NoArgsConstructor
 public class StudentReq {
 

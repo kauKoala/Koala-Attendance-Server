@@ -47,19 +47,19 @@ public class HistoryController {
     @ResponseBody
     @PostMapping("/crawlingBaekjoonRes")
     @Operation(summary = "백준 크롤링을 완료한 후 반환받는 API")
-    public ResponseTemplate<String> getBaekjoonCrawlingRes(@RequestBody List<CrawlingRes> crawlingResList){
+    public ResponseTemplate<String> postBaekjoonCrawlingRes(@RequestBody List<CrawlingRes> crawlingResList){
         try {
             historyService.getBaekjoonCrawlingResult(crawlingResList);
             return new ResponseTemplate<>("success");
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            return new ResponseTemplate<>(e.getMessage());
         }
     }
 
     @ResponseBody
     @PostMapping("/crawlingTistoryReq")
     @Operation(summary = "티스토리 크롤링을 위한 요청 API")
-    public ResponseTemplate<Long> getTistoryCrawlingReq(@RequestBody CrawlingTistoryReq crawlingTistoryReq) throws ResponseException {
+    public ResponseTemplate<Long> postTistoryCrawlingReq(@RequestBody CrawlingTistoryReq crawlingTistoryReq) {
         try {
             LocalDate nowDate = LocalDate.parse(crawlingTistoryReq.getDate(), ISO_DATE);
 
@@ -78,9 +78,20 @@ public class HistoryController {
             historyService.getTistoryCrawlingResult(crawlingResList);
             return new ResponseTemplate<>("success");
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            return new ResponseTemplate<>(e.getMessage());
         }
     }
 
 
+    @ResponseBody
+    @GetMapping("/weekdiff")
+    @Operation(summary = "백준 크롤링 결과값을 저장하는 API")
+    public ResponseTemplate<String> getWeeklyDifference(@RequestParam Long studyId) {
+        try {
+            historyService.saveHistoryList(studyId);
+            return new ResponseTemplate<>("success");
+        } catch (ResponseException e) {
+            return new ResponseTemplate<>(e.getStatus());
+        }
+    }
 }
