@@ -63,11 +63,10 @@
             <input type="submit" value="선택" class="btn btn-outline-primary btn-sm" />
         </form>
     </div>
-<%--    <div>--%>
-<%--        <strong>&lt;2024 1~3월 겨울방학 학기 기준&gt;</strong><br/>--%>
-<%--        - 2주차 티스토리 작성 현황은 1월 9일~16일 데이터가 반영되었습니다.<br/>--%>
-<%--        - 3주차 백준 및 티스토리 현황은 1월 16일 ~ 1월 22일 오전 10시 데이터가 반영되었습니다.<br/>--%>
-<%--    </div>--%>
+    <div>
+        <strong>&lt;2024 3~6월 1학기 기준&gt;</strong><br/>
+        - 1주차 백준 현황은 전영서, 장승우 학생의 경우 데이터를 크롤링과 동시에 넣는 바람에 제대로 집계되지 않은 점 양해부탁드립니다.<br/>
+    </div>
     <%
         int max_week = 0;
         List<HistoriesRes> historyResList = (List<HistoriesRes>) request.getAttribute("historyResList");
