@@ -114,6 +114,7 @@ public class HistoryService {
         return historyResList;
     }
 
+    @Async
     public void saveHistoryList(Long studyId) throws ResponseException {
         List<StudentRes> studentResList = studentService.getStudentListByStudyId(studyId);
         List<Week> weekList = weekService.getWeekListByStudyId(studyId);
