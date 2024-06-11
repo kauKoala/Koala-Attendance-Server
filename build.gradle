@@ -40,7 +40,6 @@ dependencies {
     implementation group: 'org.glassfish.web', name: 'jakarta.servlet.jsp.jstl', version: '2.0.0'
     implementation 'org.springframework.boot:spring-boot-devtools'
 
-
     //DB - postgresql & mongodb
     implementation 'org.springframework.boot:spring-boot-starter-data-mongodb'
     implementation 'org.postgresql:postgresql:42.6.0'
