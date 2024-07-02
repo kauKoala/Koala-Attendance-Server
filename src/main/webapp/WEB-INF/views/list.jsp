@@ -4,6 +4,8 @@
 <%@ page import="java.util.Map" %>
 <%@ page import="java.util.HashMap" %>
 <%@ page import="java.util.ArrayList" %>
+<%@ page import="java.time.LocalDate" %>
+<%@ page import="java.time.format.DateTimeFormatter" %>
 <%@include file="nav.jsp"%>
 
 <script>
@@ -64,8 +66,7 @@
         </form>
     </div>
     <div>
-        <strong>&lt;2024 3~6월 1학기 기준&gt;</strong><br/>
-        - 1주차 백준 현황은 전영서, 장승우 학생의 경우 데이터를 크롤링과 동시에 넣는 바람에 제대로 집계되지 않은 점 양해부탁드립니다.<br/>
+        <strong>'-'로 표시된 history는 당시 데이터가 아직 기록되지 않았음을 의미합니다.</strong><br/>
     </div>
     <%
         int max_week = 0;
@@ -73,13 +74,26 @@
 
         Map<String, Map<Integer, String>> studentMap_baekjoon = new HashMap<>(); // 이름:[주차, OX] // 백준
         Map<String, Map<Integer, String>> studentMap_tistory = new HashMap<>(); // 이름:[주차, OX] // 티스토리
+        Map<Integer, Map<String, String>> weekMap = new HashMap<>(); // 몇 주차 : [시작 날짜, 끝 날짜]
 
         if (historyResList != null && !historyResList.isEmpty()) {
             for (HistoriesRes history : historyResList) {
                 String studentName = history.getStudentName();
                 int weekId = history.getWeekNum();
+                LocalDate startDate = history.getStartDate();
+                LocalDate endDate = history.getEndDate();
                 int solved = history.getSolved();
                 int written = history.getWritten();
+
+                weekMap.put(weekId, new HashMap<>(Map.of("startDate", startDate.format(DateTimeFormatter.ofPattern("MM-dd")), "endDate", endDate.toString())));
+                while (weekMap.size() < (int)request.getAttribute("max_week")) {
+                    int nextWeekId = weekMap.size() + 1;
+                    weekMap.put(nextWeekId, new HashMap<>(Map.of(
+                            "startDate", "",
+                            "endDate", ""
+                    )));
+                }
+                System.out.println("weekMap: " + weekMap);
 
                 if (!studentMap_baekjoon.containsKey(studentName)) {
                     studentMap_baekjoon.put(studentName, new HashMap<>());
@@ -98,9 +112,10 @@
         <thead>
         <tr>
             <th>백준</th>
-            <c:forEach var="week" begin="1" end="${max_week}">
-                <th>${week-1}주차</th>
-            </c:forEach>
+            <% for (Map.Entry<Integer, Map<String, String>> entry: weekMap.entrySet()){%>
+                <th style="font-size: 13px;">
+                    ~<%=entry.getValue().get("startDate")%></th>
+            <%}%>
         </tr>
         </thead>
         <tbody>
@@ -119,9 +134,10 @@
         <thead>
         <tr>
             <th>티스토리</th>
-            <c:forEach var="week" begin="1" end="${max_week}">
-                <th>${week-1}주차</th>
-            </c:forEach>
+            <% for (Map.Entry<Integer, Map<String, String>> entry: weekMap.entrySet()){%>
+            <th style="font-size: 13px;">
+                ~<%=entry.getValue().get("startDate")%></th>
+            <%}%>
         </tr>
         </thead>
 

@@ -105,7 +105,7 @@ public class HistoryService {
                 int currentWeekNum = weekNum; // Lambda 표현식 내에서 사용되는 변수는 (사실상) final 이어야 함 -> 현재 for문에서 도는 weekNum
                 getHistory(studyId, weekList.get(weekNum).getId(), studentRes.getId())
                     .ifPresent(history -> {
-                                HistoriesRes historyListRes = new HistoriesRes(studentRes.getName(), weekList.get(currentWeekNum).getWeekNumber(),
+                                HistoriesRes historyListRes = new HistoriesRes(studentRes.getName(), weekList.get(currentWeekNum).getWeekNumber(), weekList.get(currentWeekNum).getStartDate(), weekList.get(currentWeekNum).getEndDate(),
                                         Math.max(0, history.getSolvedBaekjoonWeek()), history.getWrittenTistoryWeek());
                                 historyResList.add(historyListRes);
                     });
